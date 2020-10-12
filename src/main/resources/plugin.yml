@@ -1,0 +1,6 @@
+name: Monopoly
+version: ${project.version}
+main: io.guthub.kbates23.monopoly.Monopoly
+api-version: 1.15
+authors: [MasterBea]
+description: monopoly plugin
