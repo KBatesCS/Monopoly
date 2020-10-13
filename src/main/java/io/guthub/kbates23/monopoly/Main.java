@@ -1,12 +1,14 @@
 package io.guthub.kbates23.monopoly;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import io.guthub.kbates23.listeners.*;
 
-public final class Monopoly extends JavaPlugin {
+public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        new EventListener(this);
+        this.getCommand("createBoard").setExecutor(new CommandListener(this));
     }
 
     @Override
