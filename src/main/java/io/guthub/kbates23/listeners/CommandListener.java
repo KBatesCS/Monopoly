@@ -24,8 +24,6 @@ public class CommandListener implements CommandExecutor {
             }
             //check if all members in command are actually in server - not written for testing purposes
 
-
-
             return true;
         }
         return false;

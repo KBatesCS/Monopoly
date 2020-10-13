@@ -4,3 +4,7 @@ main: io.guthub.kbates23.monopoly.Main
 api-version: 1.15
 authors: [MasterBea]
 description: monopoly plugin
+commands:
+  createGame:
+    description: starts the monopoly game, creates a board with it
+    usage: /<command> [player] [player]....

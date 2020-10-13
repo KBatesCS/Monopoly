@@ -14,12 +14,13 @@ public class EventListener implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler
-    public void onBlockTouch(PlayerInteractEvent event) {
-        Block block = event.getClickedBlock();
-        if (block != null) {
-            block.setType(Material.DIAMOND_BLOCK);
-        }
-    }
+//    simple example plugin
+//    @EventHandler
+//    public void onBlockTouch(PlayerInteractEvent event) {
+//        Block block = event.getClickedBlock();
+//        if (block != null) {
+//            block.setType(Material.DIAMOND_BLOCK);
+//        }
+//    }
 
 }

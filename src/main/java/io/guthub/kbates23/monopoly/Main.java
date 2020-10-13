@@ -8,7 +8,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         new EventListener(this);
-        this.getCommand("createBoard").setExecutor(new CommandListener(this));
+        this.getCommand("createGame").setExecutor(new CommandListener(this));
     }
 
     @Override
