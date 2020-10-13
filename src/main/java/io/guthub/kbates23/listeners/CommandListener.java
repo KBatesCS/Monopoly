@@ -1,5 +1,6 @@
 package io.guthub.kbates23.listeners;
 
+import io.guthub.kbates23.monopoly.Game;
 import io.guthub.kbates23.monopoly.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -22,6 +23,7 @@ public class CommandListener implements CommandExecutor {
                 System.out.println(ChatColor.RED + "ERROR: player count must be between 2 and 6");
                 return false;
             }
+            Game game = new Game(((Player) sender).getLocation());
             //check if all members in command are actually in server - not written for testing purposes
 
             return true;
