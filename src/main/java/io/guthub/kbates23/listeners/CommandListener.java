@@ -16,6 +16,14 @@ public class CommandListener implements CommandExecutor {
         this.plugin = plugin;
     }
 
+    /**
+     *
+     * @param sender
+     * @param cmd
+     * @param label
+     * @param args
+     * @return
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if ((cmd.getName().equalsIgnoreCase("createGame")) && (sender instanceof Player)) {
