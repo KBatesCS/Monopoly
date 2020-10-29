@@ -9,5 +9,6 @@ public class Game {
 
     public Game(Location playerLocation) {
         gameBoard = new Board(playerLocation);
+        gameBoard.testSpaces();
     }
 }

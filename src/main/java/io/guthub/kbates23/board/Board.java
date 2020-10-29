@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 public class Board {
 
@@ -29,6 +30,28 @@ public class Board {
         buildGame();
     }
 
+    public void testSpaces() {
+        Piece piece = new Piece(Material.PINK_CONCRETE, null);
+        spaces[5].addToSpace(new Piece(Material.BLACK_CONCRETE, null));
+        spaces[5].addToSpace(new Piece(Material.RED_CONCRETE, null));
+        spaces[5].addToSpace(piece);
+        spaces[5].addToSpace(new Piece(Material.GREEN_CONCRETE, null));
+        spaces[5].removeFromSpace(piece);
+        spaces[14].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[14].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[14].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[14].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[14].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[24].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[24].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[24].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[34].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[34].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[34].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+
+
+    }
+
     /**
      * as the name says, this is the general function to create the entire game board, map dices and everything.
      */
@@ -36,47 +59,49 @@ public class Board {
         createMap(originalLocation);
     }
 
+
+
     private void initializeSpaces() {
-        spaces[0] = new BoardSpace("Go", Direction.NORTH, 0);
-        spaces[1] = new BoardSpace("Mediterranean Avenue", Direction.NORTH, 1);
-        spaces[2] = new BoardSpace("Community Chest", Direction.NORTH, 2);
-        spaces[3] = new BoardSpace("Baltic Avenue", Direction.NORTH, 3);
-        spaces[4] = new BoardSpace("Income Tax", Direction.NORTH, 4);
-        spaces[5] = new BoardSpace("Reading Railroad", Direction.NORTH, 5);
-        spaces[6] = new BoardSpace("Oriental Avenue", Direction.NORTH, 6);
-        spaces[7] = new BoardSpace("Chance", Direction.NORTH, 7);
-        spaces[8] = new BoardSpace("Vermont Avenue", Direction.NORTH, 8);
-        spaces[9] = new BoardSpace("Connecticut Avenue", Direction.NORTH, 9);
-        spaces[10] = new BoardSpace("Jail", Direction.EAST, 0);
-        spaces[11] = new BoardSpace("St. Charles Place", Direction.EAST, 1);
-        spaces[12] = new BoardSpace("Electric Company", Direction.EAST, 2);
-        spaces[13] = new BoardSpace("States Avenue", Direction.EAST, 3);
-        spaces[14] = new BoardSpace("Virginia Avenue", Direction.EAST, 4);
-        spaces[15] = new BoardSpace("Pennsylvania RailRoad", Direction.EAST, 5);
-        spaces[16] = new BoardSpace("St. James Place", Direction.EAST, 6);
-        spaces[17] = new BoardSpace("Community Chest", Direction.EAST, 7);
-        spaces[18] = new BoardSpace("Tennessee Avenue", Direction.EAST, 8);
-        spaces[19] = new BoardSpace("New York Avenue", Direction.EAST, 9);
-        spaces[20] = new BoardSpace("Free Parking", Direction.SOUTH, 0);
-        spaces[21] = new BoardSpace("Kentucky Avenue", Direction.SOUTH, 1);
-        spaces[22] = new BoardSpace("Chance", Direction.SOUTH, 2);
-        spaces[23] = new BoardSpace("Indiana Avenue", Direction.SOUTH, 3);
-        spaces[24] = new BoardSpace("Illinois Avenue", Direction.SOUTH, 4);
-        spaces[25] = new BoardSpace("B. & O. Railroad", Direction.SOUTH, 5);
-        spaces[26] = new BoardSpace("Atlantic Avenue", Direction.SOUTH, 6);
-        spaces[27] = new BoardSpace("Ventnor Avenue", Direction.SOUTH, 7);
-        spaces[28] = new BoardSpace("Water Works", Direction.SOUTH, 8);
-        spaces[29] = new BoardSpace("Marvin Gardens", Direction.SOUTH, 9);
-        spaces[30] = new BoardSpace("Go to Jail", Direction.WEST, 0);
-        spaces[31] = new BoardSpace("Pacific Avenue", Direction.WEST, 1);
-        spaces[32] = new BoardSpace("North Carolina Avenue", Direction.WEST, 2);
-        spaces[33] = new BoardSpace("Community Chest", Direction.WEST, 3);
-        spaces[34] = new BoardSpace("Pennsylvania Avenue", Direction.WEST, 4);
-        spaces[35] = new BoardSpace("Short Line", Direction.WEST, 5);
-        spaces[36] = new BoardSpace("Chance", Direction.WEST, 6);
-        spaces[37] = new BoardSpace("Park Place", Direction.WEST, 7);
-        spaces[38] = new BoardSpace("Luxury Tax", Direction.WEST, 8);
-        spaces[39] = new BoardSpace("Boardwalk", Direction.WEST, 9);
+        spaces[0] = new BoardSpace("Go", Direction.NORTH, 0, originalLocation);
+        spaces[1] = new BoardSpace("Mediterranean Avenue", Direction.NORTH, 1, originalLocation);
+        spaces[2] = new BoardSpace("Community Chest", Direction.NORTH, 2, originalLocation);
+        spaces[3] = new BoardSpace("Baltic Avenue", Direction.NORTH, 3, originalLocation);
+        spaces[4] = new BoardSpace("Income Tax", Direction.NORTH, 4, originalLocation);
+        spaces[5] = new BoardSpace("Reading Railroad", Direction.NORTH, 5, originalLocation);
+        spaces[6] = new BoardSpace("Oriental Avenue", Direction.NORTH, 6, originalLocation);
+        spaces[7] = new BoardSpace("Chance", Direction.NORTH, 7, originalLocation);
+        spaces[8] = new BoardSpace("Vermont Avenue", Direction.NORTH, 8, originalLocation);
+        spaces[9] = new BoardSpace("Connecticut Avenue", Direction.NORTH, 9, originalLocation);
+        spaces[10] = new BoardSpace("Jail", Direction.EAST, 0, originalLocation);
+        spaces[11] = new BoardSpace("St. Charles Place", Direction.EAST, 1, originalLocation);
+        spaces[12] = new BoardSpace("Electric Company", Direction.EAST, 2, originalLocation);
+        spaces[13] = new BoardSpace("States Avenue", Direction.EAST, 3, originalLocation);
+        spaces[14] = new BoardSpace("Virginia Avenue", Direction.EAST, 4, originalLocation);
+        spaces[15] = new BoardSpace("Pennsylvania RailRoad", Direction.EAST, 5, originalLocation);
+        spaces[16] = new BoardSpace("St. James Place", Direction.EAST, 6, originalLocation);
+        spaces[17] = new BoardSpace("Community Chest", Direction.EAST, 7, originalLocation);
+        spaces[18] = new BoardSpace("Tennessee Avenue", Direction.EAST, 8, originalLocation);
+        spaces[19] = new BoardSpace("New York Avenue", Direction.EAST, 9, originalLocation);
+        spaces[20] = new BoardSpace("Free Parking", Direction.SOUTH, 0, originalLocation);
+        spaces[21] = new BoardSpace("Kentucky Avenue", Direction.SOUTH, 1, originalLocation);
+        spaces[22] = new BoardSpace("Chance", Direction.SOUTH, 2, originalLocation);
+        spaces[23] = new BoardSpace("Indiana Avenue", Direction.SOUTH, 3, originalLocation);
+        spaces[24] = new BoardSpace("Illinois Avenue", Direction.SOUTH, 4, originalLocation);
+        spaces[25] = new BoardSpace("B. & O. Railroad", Direction.SOUTH, 5, originalLocation);
+        spaces[26] = new BoardSpace("Atlantic Avenue", Direction.SOUTH, 6, originalLocation);
+        spaces[27] = new BoardSpace("Ventnor Avenue", Direction.SOUTH, 7, originalLocation);
+        spaces[28] = new BoardSpace("Water Works", Direction.SOUTH, 8, originalLocation);
+        spaces[29] = new BoardSpace("Marvin Gardens", Direction.SOUTH, 9, originalLocation);
+        spaces[30] = new BoardSpace("Go to Jail", Direction.WEST, 0, originalLocation);
+        spaces[31] = new BoardSpace("Pacific Avenue", Direction.WEST, 1, originalLocation);
+        spaces[32] = new BoardSpace("North Carolina Avenue", Direction.WEST, 2, originalLocation);
+        spaces[33] = new BoardSpace("Community Chest", Direction.WEST, 3, originalLocation);
+        spaces[34] = new BoardSpace("Pennsylvania Avenue", Direction.WEST, 4, originalLocation);
+        spaces[35] = new BoardSpace("Short Line", Direction.WEST, 5, originalLocation);
+        spaces[36] = new BoardSpace("Chance", Direction.WEST, 6, originalLocation);
+        spaces[37] = new BoardSpace("Park Place", Direction.WEST, 7, originalLocation);
+        spaces[38] = new BoardSpace("Luxury Tax", Direction.WEST, 8, originalLocation);
+        spaces[39] = new BoardSpace("Boardwalk", Direction.WEST, 9, originalLocation);
     }
 
     /**
@@ -128,8 +153,8 @@ public class Board {
                     world.getBlockAt(x + xCord, y, z + yCord).setType(getMaterial(pixel));
                 }
             }
-        } catch (Exception e) {
-            System.out.println("error in drawing board");
+        } catch (IOException e) {
+            System.out.println("error in drawing board (probably issue with image path)");
         }
     }
 

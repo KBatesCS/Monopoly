@@ -24,13 +24,23 @@ public class Piece {
         newSpace.addToSpace(this);
     }
 
+    public Material getMaterial() {
+        return this.material;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Piece)) {
             return false;
         }
         Piece piece = (Piece) obj;
-        return ((piece.material.equals(this.material)) && (piece.player.equals(this.player))
+        System.out.println("remember to add the piece.players equals"); //had to be taken out for testing
+        return ((piece.material.equals(this.material))
                 && (piece.money == this.money) && (piece.currentSpace == this.currentSpace));
+    }
+
+    @Override
+    public String toString() {
+        return "material: " + material.toString();
     }
 }
