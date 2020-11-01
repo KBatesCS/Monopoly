@@ -1,13 +1,16 @@
-package io.guthub.kbates23.board;
+package io.guthub.kbates23.boardSpaces;
 
+import io.guthub.kbates23.board.Direction;
+import io.guthub.kbates23.board.Piece;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-public class BoardSpace {
+public abstract class BoardSpace {
 
     private String displayName;
     private int buyCost;
@@ -81,11 +84,10 @@ public class BoardSpace {
         }
      }
 
-
      private void buildPiece(int pieceNum, Material material) {
 
         if (locationOnRow == 0) {
-
+            
         } else {
             int xBottom = cornerX;
             int zBottom = cornerZ;
@@ -112,4 +114,6 @@ public class BoardSpace {
                              zBottom + direction.zDir).setType(material);
         }
      }
+
+    public abstract void performSpaceAction(Player player);
 }
