@@ -3,6 +3,8 @@ package io.guthub.kbates23.monopoly;
 import org.bukkit.plugin.java.JavaPlugin;
 import io.guthub.kbates23.listeners.*;
 
+import java.util.ArrayList;
+
 public final class Main extends JavaPlugin {
 
     @Override
@@ -13,6 +15,6 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        GameManager.endAllGames();
     }
 }

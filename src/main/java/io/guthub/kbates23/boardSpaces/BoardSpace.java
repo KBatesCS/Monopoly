@@ -115,5 +115,5 @@ public abstract class BoardSpace {
         }
      }
 
-    public abstract void performSpaceAction(Player player);
+    public abstract void performSpaceAction(Piece piece);
 }

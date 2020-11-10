@@ -19,6 +19,10 @@ public class Piece {
         money = 1500;
     }
 
+    public void charge(int charge) {
+        money -= charge;
+    }
+
     public void moveToSpace(int spaceLocation, BoardSpace newSpace) {
         currentLocation = spaceLocation;
         currentSpace.removeFromSpace(this);

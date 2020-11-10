@@ -1,6 +1,7 @@
 package io.guthub.kbates23.boardSpaces;
 
 import io.guthub.kbates23.board.Direction;
+import io.guthub.kbates23.board.Piece;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -26,7 +27,7 @@ public class ChanceSpace extends BoardSpace {
     }
 
     @Override
-    public void performSpaceAction(Player player) {
+    public void performSpaceAction(Piece piece) {
 
     }
 
