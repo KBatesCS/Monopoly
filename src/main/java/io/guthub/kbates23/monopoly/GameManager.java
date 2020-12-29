@@ -1,6 +1,8 @@
 package io.guthub.kbates23.monopoly;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 
@@ -12,9 +14,10 @@ public class GameManager {
         games = new ArrayList<>();
     }
 
-    public static Game startNewGame(Location location, int gameNum) {
-        games.add(new Game(location, gameNum));
-        return games.get(games.size() - 1);
+    public static void startNewGame(Location location, int gameNum, Main plugin) {
+        Game newGame = new Game(location, gameNum);
+        newGame.runTaskTimer(plugin, 0L, 20L);
+        games.add(newGame);
     }
 
     public static boolean endGame(int gameNum) {

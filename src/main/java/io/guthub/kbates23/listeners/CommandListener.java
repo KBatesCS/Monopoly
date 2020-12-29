@@ -21,9 +21,8 @@ public class CommandListener implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        System.out.println("test");
         if ((cmd.getName().equalsIgnoreCase("createGame")) && (sender instanceof Player)) {
-            GameManager.startNewGame(((Player) sender).getLocation(), gameNum);
+            GameManager.startNewGame(((Player) sender).getLocation(), gameNum, plugin);
             plugin.getServer().broadcastMessage("Game number <" + gameNum + "> has started");
             gameNum++;
             return true;
