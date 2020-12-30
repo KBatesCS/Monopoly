@@ -57,8 +57,6 @@ public class Board {
         createMap(originalLocation);
     }
 
-
-
     private void initializeSpaces() {
         spaces[0] = new GoSpace("Go", Direction.NORTH, 0, originalLocation);
         spaces[1] = new HousingSpace("Mediterranean Avenue", Direction.NORTH, 1, originalLocation, new int[]{2, 10, 30, 90, 160, 250});
@@ -154,6 +152,10 @@ public class Board {
         } catch (IOException e) {
             System.out.println("error in drawing board (probably issue with image path)");
         }
+    }
+
+    public void movePieceForward(Piece piece, int numSpaces) {
+
     }
 
 }

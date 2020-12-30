@@ -31,6 +31,15 @@ public class GameManager {
         return false;
     }
 
+    public static Game getGame(int gameNum) {
+        for (int i = 0; i < games.size(); i++) {
+            if (games.get(i).getGameNum() == gameNum) {
+                return games.get(i);
+            }
+        }
+        return null;
+    }
+
     public static void endAllGames() {
         for (Game game: games) {
             game.cancel();

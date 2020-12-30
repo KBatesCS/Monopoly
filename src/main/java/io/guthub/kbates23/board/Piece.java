@@ -17,6 +17,7 @@ public class Piece {
         this.player = player;
         currentLocation = 0;
         money = 1500;
+        currentLocation = 0;
     }
 
     public void charge(int charge) {
@@ -25,12 +26,19 @@ public class Piece {
 
     public void moveToSpace(int spaceLocation, BoardSpace newSpace) {
         currentLocation = spaceLocation;
-        currentSpace.removeFromSpace(this);
+        if (currentSpace != null) {
+            currentSpace.removeFromSpace(this);
+        }
         newSpace.addToSpace(this);
+        currentSpace = newSpace;
     }
 
     public Material getMaterial() {
         return this.material;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
