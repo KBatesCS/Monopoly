@@ -16,19 +16,24 @@ public class GameManager {
 
     public static void startNewGame(Location location, int gameNum, Main plugin) {
         Game newGame = new Game(location, gameNum);
-        newGame.runTaskTimer(plugin, 0L, 20L);
         games.add(newGame);
     }
 
     public static boolean endGame(int gameNum) {
         for (int i = 0; i < games.size(); i++) {
             if (games.get(i).getGameNum() == gameNum) {
-                games.get(i).cancel();
+                games.get(i).endGame();
                 games.remove(i);
                 return true;
             }
         }
         return false;
+    }
+
+    public static void endAllGames() {
+        for (Game game: games) {
+            game.endGame();
+        }
     }
 
     public static Game getGame(int gameNum) {
@@ -38,13 +43,6 @@ public class GameManager {
             }
         }
         return null;
-    }
-
-    public static void endAllGames() {
-        for (Game game: games) {
-            game.cancel();
-        }
-        games = null;
     }
 
 }

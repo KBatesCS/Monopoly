@@ -86,11 +86,25 @@ public abstract class BoardSpace {
 
     private void buildPiece(int pieceNum, Material material) {
 
+        int xBottom = cornerX;
+        int zBottom = cornerZ;
         if (locationOnRow == 0) {
-
+            xBottom += direction.xDir * 2;
+            zBottom += direction.zDir * 2;
+            if ((direction == Direction.NORTH) || (direction == Direction.SOUTH)) {
+                if (pieceNum < 3) {
+                    xBottom += (3 * pieceNum + 2) * direction.xDir;
+                } else {
+                    zBottom += (3 * (pieceNum - 3) + 2) * direction.zDir;
+                }
+            } else {
+                if (pieceNum < 3) {
+                    zBottom += (3 * pieceNum + 2) * direction.zDir;
+                } else {
+                    xBottom += (3 * (pieceNum - 3) + 2) * direction.xDir;
+                }
+            }
         } else {
-            int xBottom = cornerX;
-            int zBottom = cornerZ;
             if ((direction == Direction.NORTH) || (direction == Direction.SOUTH)) {
                 xBottom += 4 * (pieceNum % 2) * direction.xDir;
                 zBottom += (2 - (pieceNum / 2)) * 3 * direction.zDir;
@@ -102,17 +116,16 @@ public abstract class BoardSpace {
                 xBottom += direction.xDir * 1;
                 zBottom += direction.zDir * 2;
             }
-
-            System.out.println("building on space: " + locationOnRow + ", piece #" + pieceNum + ", x:" + xBottom + ", z:" + zBottom);
-            world.getBlockAt(xBottom, originalLocation.getBlockY() + 1, zBottom).setType(material);
-            world.getBlockAt(xBottom + direction.xDir, originalLocation.getBlockY() + 1, zBottom).setType(material);
-            world.getBlockAt(xBottom , originalLocation.getBlockY() + 1, zBottom + direction.zDir).setType(material);
-            world.getBlockAt(xBottom + direction.xDir, originalLocation.getBlockY() + 1,
-                    zBottom + direction.zDir).setType(material);
-            world.getBlockAt(xBottom, originalLocation.getBlockY() + 2, zBottom).setType(material);
-            world.getBlockAt(xBottom + direction.xDir, originalLocation.getBlockY() + 2,
-                    zBottom + direction.zDir).setType(material);
         }
+        System.out.println("building on space: " + locationOnRow + ", piece #" + pieceNum + ", x:" + xBottom + ", z:" + zBottom);
+        world.getBlockAt(xBottom, originalLocation.getBlockY() + 1, zBottom).setType(material);
+        world.getBlockAt(xBottom + direction.xDir, originalLocation.getBlockY() + 1, zBottom).setType(material);
+        world.getBlockAt(xBottom, originalLocation.getBlockY() + 1, zBottom + direction.zDir).setType(material);
+        world.getBlockAt(xBottom + direction.xDir, originalLocation.getBlockY() + 1,
+                zBottom + direction.zDir).setType(material);
+        world.getBlockAt(xBottom, originalLocation.getBlockY() + 2, zBottom).setType(material);
+        world.getBlockAt(xBottom + direction.xDir, originalLocation.getBlockY() + 2,
+                zBottom + direction.zDir).setType(material);
     }
 
     public abstract void performSpaceAction(Piece piece);

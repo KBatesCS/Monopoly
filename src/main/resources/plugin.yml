@@ -7,7 +7,13 @@ description: monopoly plugin
 commands:
   createGame:
     description: starts the monopoly game, creates a board with it
-    usage: /<command> [player] [player]....
+    usage: /createGame [player] [player]....
   join:
     description: joins a monopoly name
-    usage: /join <game number> <Material>
+    usage: /join <game number> <Block>
+  startGame:
+    description: starts a game
+    usage: /startGame <gamenum>
+  endGame:
+    description: end a game
+    usage: /endGame <gamenum>

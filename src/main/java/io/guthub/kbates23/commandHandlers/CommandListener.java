@@ -1,9 +1,8 @@
-package io.guthub.kbates23.listeners;
+package io.guthub.kbates23.commandHandlers;
 
 import io.guthub.kbates23.monopoly.Game;
 import io.guthub.kbates23.monopoly.GameManager;
 import io.guthub.kbates23.monopoly.Main;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,10 +23,13 @@ public class CommandListener implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if ((cmd.getName().equalsIgnoreCase("createGame")) && (sender instanceof Player)) {
             GameManager.startNewGame(((Player) sender).getLocation(), gameNum, plugin);
-            plugin.getServer().broadcastMessage("Game number <" + gameNum + "> has started");
+            plugin.getServer().broadcastMessage("Game number <" + gameNum + "> has been created");
             gameNum++;
             return true;
         } else if ((cmd.getName().equalsIgnoreCase("join")) && (sender instanceof Player)) {
+            if (args.length != 2) {
+                return false;
+            }
             Game game;
             try {
                 game = GameManager.getGame(Integer.parseInt(args[0]));
@@ -51,8 +53,43 @@ public class CommandListener implements CommandExecutor {
                 return true;
             }
             return false;
+        } else if (cmd.getName().equalsIgnoreCase("startGame")) {
+            if (args.length != 1) {
+                return false;
+            }
+            try {
+                Game game = GameManager.getGame(Integer.parseInt(args[0]));
+                if (game == null) {
+                    ((Player) sender).sendMessage(args[0] + " is not a valid game");
+                    return false;
+                }
+                game.startGame();
+                plugin.getServer().broadcastMessage("Game number <" + args[0] + "> has started");
+                return true;
+            } catch (NumberFormatException e) {
+                ((Player) sender).sendMessage(args[0] + " is not a valid number");
+                return false;
+            }
+        } else if (cmd.getName().equalsIgnoreCase("endGame")) {
+            if (args.length != 1) {
+                return false;
+            }
+            try {
+                Game game = GameManager.getGame(Integer.parseInt(args[0]));
+                if (game == null) {
+                    ((Player) sender).sendMessage(args[0] + " is not a valid game");
+                    return false;
+                }
+                game.endGame();
+                plugin.getServer().broadcastMessage("Game number <" + args[0] + "> has ended");
+                return true;
+            } catch (NumberFormatException e) {
+                ((Player) sender).sendMessage(args[0] + " is not a valid number");
+                return false;
+            }
         }
         return false;
+
     }
 
 }

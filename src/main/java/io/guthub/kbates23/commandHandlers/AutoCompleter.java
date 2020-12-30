@@ -1,7 +1,6 @@
-package io.guthub.kbates23.listeners;
+package io.guthub.kbates23.commandHandlers;
 
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -11,20 +10,11 @@ import io.guthub.kbates23.monopoly.Main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventListener implements Listener, TabCompleter {
+public class AutoCompleter implements Listener, TabCompleter {
 
-    public EventListener(Main plugin) {
+    public AutoCompleter(Main plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
-
-//    simple example plugin
-//    @EventHandler
-//    public void onBlockTouch(PlayerInteractEvent event) {
-//        Block block = event.getClickedBlock();
-//        if (block != null) {
-//            block.setType(Material.DIAMOND_BLOCK);
-//        }
-//    }
 
     private List<String> getAllMaterials() {
         List<String> list = new ArrayList<String>();

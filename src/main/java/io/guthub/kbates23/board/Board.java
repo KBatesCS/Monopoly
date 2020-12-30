@@ -31,23 +31,30 @@ public class Board {
     }
 
     public void testSpaces() {
-        Piece piece = new Piece(Material.PINK_CONCRETE, null);
-        spaces[5].addToSpace(new Piece(Material.BLACK_CONCRETE, null));
-        spaces[5].addToSpace(new Piece(Material.RED_CONCRETE, null));
-        spaces[5].addToSpace(piece);
-        spaces[5].addToSpace(new Piece(Material.GREEN_CONCRETE, null));
-        spaces[5].removeFromSpace(piece);
-        spaces[14].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[14].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[14].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[14].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[14].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[24].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[24].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[24].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[34].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[34].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[34].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[0].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[0].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[0].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[0].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[0].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
+        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
     }
 
     /**
@@ -98,6 +105,10 @@ public class Board {
         spaces[37] = new HousingSpace("Park Place", Direction.WEST, 7, originalLocation, new int[]{35, 175, 500, 1100, 1300, 1500});
         spaces[38] = new TaxSpace("Luxury Tax", Direction.WEST, 8, originalLocation);
         spaces[39] = new HousingSpace("Boardwalk", Direction.WEST, 9, originalLocation, new int[]{50, 200, 600, 1400, 1700, 2000});
+    }
+
+    public BoardSpace getSpace(int space) {
+        return spaces[space];
     }
 
     /**
