@@ -5,7 +5,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class Piece {
-
     private Material material;
     Player player;
     private int money;

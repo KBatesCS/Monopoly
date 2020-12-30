@@ -82,12 +82,12 @@ public abstract class BoardSpace {
                 buildPiece(i, Material.AIR);
             }
         }
-     }
+    }
 
-     private void buildPiece(int pieceNum, Material material) {
+    private void buildPiece(int pieceNum, Material material) {
 
         if (locationOnRow == 0) {
-            
+
         } else {
             int xBottom = cornerX;
             int zBottom = cornerZ;
@@ -108,12 +108,12 @@ public abstract class BoardSpace {
             world.getBlockAt(xBottom + direction.xDir, originalLocation.getBlockY() + 1, zBottom).setType(material);
             world.getBlockAt(xBottom , originalLocation.getBlockY() + 1, zBottom + direction.zDir).setType(material);
             world.getBlockAt(xBottom + direction.xDir, originalLocation.getBlockY() + 1,
-                             zBottom + direction.zDir).setType(material);
+                    zBottom + direction.zDir).setType(material);
             world.getBlockAt(xBottom, originalLocation.getBlockY() + 2, zBottom).setType(material);
             world.getBlockAt(xBottom + direction.xDir, originalLocation.getBlockY() + 2,
-                             zBottom + direction.zDir).setType(material);
+                    zBottom + direction.zDir).setType(material);
         }
-     }
+    }
 
     public abstract void performSpaceAction(Piece piece);
 }

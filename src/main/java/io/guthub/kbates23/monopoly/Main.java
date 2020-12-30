@@ -11,6 +11,8 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         new EventListener(this);
         this.getCommand("createGame").setExecutor(new CommandListener(this));
+        this.getCommand("join").setExecutor(new CommandListener(this));
+        getCommand("join").setTabCompleter(new EventListener(this));
     }
 
     @Override

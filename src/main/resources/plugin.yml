@@ -8,3 +8,6 @@ commands:
   createGame:
     description: starts the monopoly game, creates a board with it
     usage: /<command> [player] [player]....
+  join:
+    description: joins a monopoly name
+    usage: /join <game number> <Material>

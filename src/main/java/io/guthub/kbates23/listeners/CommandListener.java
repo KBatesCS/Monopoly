@@ -28,17 +28,29 @@ public class CommandListener implements CommandExecutor {
             gameNum++;
             return true;
         } else if ((cmd.getName().equalsIgnoreCase("join")) && (sender instanceof Player)) {
+            Game game;
             try {
-                Game game = GameManager.getGame(Integer.parseInt(args[0]));
-                if (game == null) {
-                    ((Player) sender).sendMessage("Game Number <" + args[0] + "> does not exist");
-                }
-                Material material = Material.getMaterial(args[1]);
-                return game.addPiece((Player) sender, material);
-            } catch (Exception e) {
-                ((Player) sender).sendMessage("invalid format (join <game number> <material type>)");
+                game = GameManager.getGame(Integer.parseInt(args[0]));
+            } catch (NumberFormatException e) {
+                ((Player) sender).sendMessage(args[0] + " is not a valid number");
                 return false;
             }
+            if (game == null) {
+                ((Player) sender).sendMessage("Game Number <" + args[0] + "> does not exist");
+                return false;
+            }
+
+            Material material = Material.getMaterial(args[1]);
+            if ((material == null) || (!material.isSolid())) {
+                ((Player) sender).sendMessage(args[1] + " is not a valid block");
+                return false;
+            }
+            System.out.println(material.toString());
+            if (game.addPiece((Player) sender, material)) {
+                ((Player) sender).sendMessage("successfully joined game " + args[0]);
+                return true;
+            }
+            return false;
         }
         return false;
     }

@@ -142,7 +142,7 @@ public class Board {
         int z = (int) playerLocation.getZ();
 
         try {
-            BufferedImage monopolyImage = ImageIO.read(new File("C:\\Users\\kevin\\OneDrive\\Documents\\GitHub repos\\Monopoly\\src\\main\\java\\io\\guthub\\kbates23\\board\\MonopolyMap.png"));
+            BufferedImage monopolyImage = ImageIO.read(new File("C:\\Users\\kevin\\Documents\\monopoly\\src\\main\\java\\io\\guthub\\kbates23\\board\\MonopolyMap.png"));
             for (int xCord = 0; xCord < 108; xCord++) {
                 for (int yCord = 0; yCord < 108; yCord++) {
                     Color pixel = new Color(monopolyImage.getRGB(xCord, yCord));
