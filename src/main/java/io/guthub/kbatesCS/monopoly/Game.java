@@ -2,6 +2,7 @@ package io.guthub.kbatesCS.monopoly;
 
 import io.guthub.kbatesCS.board.Board;
 import io.guthub.kbatesCS.board.Piece;
+import io.guthub.kbatesCS.inventoryHandlers.GameHotBarHandler;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -26,10 +27,12 @@ public class Game {
     public void startGame() {
         gameStarted = true;
         playerInventories = new HashMap<Player, ItemStack[]>();
+        GameHotBarHandler hotBarHandler = new GameHotBarHandler();
         for (Piece piece: pieces) {
             piece.moveToSpace(0, gameBoard.getSpace(0));
             playerInventories.put(piece.getPlayer(), piece.getPlayer().getInventory().getContents());
             piece.getPlayer().getInventory().clear();
+            hotBarHandler.setupHotBar(piece.getPlayer());
         }
 
     }
