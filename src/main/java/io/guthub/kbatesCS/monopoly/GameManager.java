@@ -49,4 +49,8 @@ public class GameManager {
         return game.playerInGame(player);
     }
 
+    public static boolean gameStarted() {
+        return game.hasStarted();
+    }
+
 }

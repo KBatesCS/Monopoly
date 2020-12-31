@@ -23,6 +23,10 @@ public class Piece {
         money -= charge;
     }
 
+    public int getCurrentLocation() {
+        return currentLocation;
+    }
+
     public void moveToSpace(int spaceLocation, BoardSpace newSpace) {
         currentLocation = spaceLocation;
         if (currentSpace != null) {

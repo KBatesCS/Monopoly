@@ -6,21 +6,28 @@ import org.bukkit.Location;
 
 public class HousingSpace extends BoardSpace{
 
-    private int[] costs;
+    private int[] landOnPrices;
     private int numHouses;
     private Piece owner;
+    private int buildingCost;
+    private int buyCost;
+    private int mortgageValue;
 
     public HousingSpace (String name, Direction direction, int locationOnRow, Location originalLocation, int[] costs) {
         super(name, direction, locationOnRow, originalLocation);
-        this.costs = costs.clone();
+        landOnPrices = new int[6];
+        for (int i = 0; i < 6; i++) {
+            this.landOnPrices[i] = costs[i];
+        }
+        buildingCost = costs[6];
+        buyCost = costs[7];
+        mortgageValue = costs[8];
         owner = null;
     }
 
     public void performSpaceAction(Piece piece) {
-        if (owner == null) {
-            //buy?
-        } else {
-            piece.charge(costs[numHouses]);
+        if (owner != null) {
+            piece.charge(landOnPrices[numHouses]);
         }
     }
 

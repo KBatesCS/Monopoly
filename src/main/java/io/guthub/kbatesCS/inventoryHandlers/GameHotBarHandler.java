@@ -28,8 +28,21 @@ public class GameHotBarHandler {
         ItemMeta diceMeta = dice.getItemMeta();
         diceMeta.setDisplayName("Dice");
         dice.setItemMeta(diceMeta);
-
         inventory.setItem(0, dice);
+
+        ItemStack endTurn = new ItemStack(Material.BARRIER);
+        ItemMeta endTurnMeta = endTurn.getItemMeta();
+        endTurnMeta.setDisplayName("End Turn");
+        endTurn.setItemMeta(endTurnMeta);
+        inventory.setItem(8, endTurn);
+
+        ItemStack buySpace = new ItemStack(Material.GREEN_WOOL);
+        ItemMeta buySpaceMeta = buySpace.getItemMeta();
+        buySpaceMeta.setDisplayName("Buy Space");
+        buySpace.setItemMeta(buySpaceMeta);
+        inventory.setItem(2, buySpace);
+
+
     }
 
 

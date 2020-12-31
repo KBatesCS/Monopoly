@@ -3,12 +3,14 @@ package io.guthub.kbatesCS.monopoly;
 import io.guthub.kbatesCS.board.Board;
 import io.guthub.kbatesCS.board.Piece;
 import io.guthub.kbatesCS.inventoryHandlers.GameHotBarHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Game {
@@ -18,10 +20,64 @@ public class Game {
     private boolean gameStarted;
     private HashMap<Player, ItemStack[]> playerInventories;
 
+    //game running code
+    private boolean diceRolled;
+    private int numRolls;
+
+
     public Game(Location playerLocation) {
         gameBoard = new Board(playerLocation);
         this.pieces = new ArrayList<>();
         gameStarted = false;
+        diceRolled = false;
+        numRolls = 0;
+    }
+
+    public boolean startNewTurn() {
+        if (!diceRolled) {
+            return false;
+        }
+        diceRolled = false;
+        numRolls = 0;
+        pieces.add(pieces.remove(0));
+        Bukkit.getServer().broadcastMessage(pieces.get(0).getPlayer().getDisplayName() + "'s turn");
+        return true;
+    }
+
+    public boolean rollDice() {
+        if (diceRolled) {
+            return false;
+        }
+        numRolls++;
+        int roll1 = (int) (Math.random() * 6 + 1);
+        int roll2 = (int) (Math.random() * 6 + 1);
+        if ((roll1 == roll2) && (numRolls == 3)) {
+            //to jail you go
+        } else if (roll1 != roll2) {
+            diceRolled = true;
+        }
+        Bukkit.getServer().broadcastMessage(" Rolled <" + roll1 + "> and <" + roll2 + ">, moving "
+                                            + (roll1 + roll2) + " spaces");
+        int currentLocation = pieces.get(0).getCurrentLocation();
+        if ((currentLocation + roll1 + roll2) >= 40) {
+            pieces.get(0).charge(-200);
+        }
+        currentLocation = (currentLocation + roll1 + roll2) % 40;
+
+        pieces.get(0).moveToSpace(currentLocation, gameBoard.getSpace(currentLocation));
+        return true;
+    }
+
+    public Player currentPlayer() {
+        return pieces.get(0).getPlayer();
+    }
+
+    public boolean buySpace() {
+        if (numRolls == 0) {
+            return false;
+        }
+        return true;
+
     }
 
     public void startGame() {
@@ -35,6 +91,7 @@ public class Game {
             hotBarHandler.setupHotBar(piece.getPlayer());
         }
 
+        Collections.shuffle(pieces);
     }
 
     public boolean addPiece(Player player, Material material) {
