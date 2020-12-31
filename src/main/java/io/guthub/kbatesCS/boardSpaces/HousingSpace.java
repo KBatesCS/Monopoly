@@ -31,6 +31,17 @@ public class HousingSpace extends BoardSpace{
         }
     }
 
+    public boolean buyProperty(Piece piece) {
+        if ((piece.getMoney() < buyCost) || (owner != null)) {
+            return false;
+        }
+        owner = piece;
+        piece.charge(buyCost);
+        this.updateOwnershipDisplay(owner);
+        return true;
+    }
+
+
     public boolean addHouse(int newHouses) {
         if ((numHouses + newHouses) > 5) {
             return false;
@@ -56,4 +67,7 @@ public class HousingSpace extends BoardSpace{
         }
     }
 
+    public int getCost() {
+        return buyCost;
+    }
 }

@@ -59,6 +59,51 @@ public abstract class BoardSpace {
         }
     }
 
+    public void updateOwnershipDisplay(Piece owner) {
+        if (locationOnRow == 0) {
+            return;
+        }
+        int xBottom = cornerX;
+        int zBottom = cornerZ;
+        Material mainMaterial = Material.WHITE_CONCRETE;
+        Material edgeMaterial = Material.WHITE_CONCRETE;
+        if (owner != null) {
+            mainMaterial = owner.getMaterial();
+            edgeMaterial = Material.BLACK_CONCRETE;
+        }
+        if ((direction == Direction.NORTH) || (direction == Direction.SOUTH)) {
+            xBottom += 2 * direction.xDir;
+            zBottom += 14 * direction.zDir;
+            world.getBlockAt(xBottom, originalLocation.getBlockY(), zBottom).setType(edgeMaterial);
+            world.getBlockAt(xBottom + (1 * direction.xDir), originalLocation.getBlockY(), zBottom).setType(mainMaterial);
+            world.getBlockAt(xBottom + (2 * direction.xDir), originalLocation.getBlockY(), zBottom).setType(mainMaterial);
+            world.getBlockAt(xBottom + (3 * direction.xDir), originalLocation.getBlockY(), zBottom).setType(mainMaterial);
+            world.getBlockAt(xBottom + (4 * direction.xDir), originalLocation.getBlockY(), zBottom).setType(mainMaterial);
+            world.getBlockAt(xBottom + (5 * direction.xDir), originalLocation.getBlockY(), zBottom).setType(edgeMaterial);
+            world.getBlockAt(xBottom + (1 * direction.xDir), originalLocation.getBlockY(), zBottom + (1 * direction.zDir)).setType(edgeMaterial);
+            world.getBlockAt(xBottom + (2 * direction.xDir), originalLocation.getBlockY(), zBottom + (1 * direction.zDir)).setType(mainMaterial);
+            world.getBlockAt(xBottom + (3 * direction.xDir), originalLocation.getBlockY(), zBottom + (1 * direction.zDir)).setType(mainMaterial);
+            world.getBlockAt(xBottom + (4 * direction.xDir), originalLocation.getBlockY(), zBottom + (1 * direction.zDir)).setType(edgeMaterial);
+            world.getBlockAt(xBottom + (2 * direction.xDir), originalLocation.getBlockY(), zBottom + (2 * direction.zDir)).setType(edgeMaterial);
+            world.getBlockAt(xBottom + (3 * direction.xDir), originalLocation.getBlockY(), zBottom + (2 * direction.zDir)).setType(edgeMaterial);
+        } else {
+            xBottom += 14 * direction.xDir;
+            zBottom += 2 * direction.zDir;
+            world.getBlockAt(xBottom, originalLocation.getBlockY(), zBottom).setType(edgeMaterial);
+            world.getBlockAt(xBottom, originalLocation.getBlockY(), zBottom + (1 * direction.zDir)).setType(mainMaterial);
+            world.getBlockAt(xBottom, originalLocation.getBlockY(), zBottom + (2 * direction.zDir)).setType(mainMaterial);
+            world.getBlockAt(xBottom, originalLocation.getBlockY(), zBottom + (3 * direction.zDir)).setType(mainMaterial);
+            world.getBlockAt(xBottom, originalLocation.getBlockY(), zBottom + (4 * direction.zDir)).setType(mainMaterial);
+            world.getBlockAt(xBottom, originalLocation.getBlockY(), zBottom + (5 * direction.zDir)).setType(edgeMaterial);
+            world.getBlockAt(xBottom + (1 * direction.xDir), originalLocation.getBlockY(), zBottom + (1 * direction.zDir)).setType(edgeMaterial);
+            world.getBlockAt(xBottom + (1 * direction.xDir), originalLocation.getBlockY(), zBottom + (2 * direction.zDir)).setType(mainMaterial);
+            world.getBlockAt(xBottom + (1 * direction.xDir), originalLocation.getBlockY(), zBottom + (3 * direction.zDir)).setType(mainMaterial);
+            world.getBlockAt(xBottom + (1 * direction.xDir), originalLocation.getBlockY(), zBottom + (4 * direction.zDir)).setType(edgeMaterial);
+            world.getBlockAt(xBottom + (2 * direction.xDir), originalLocation.getBlockY(), zBottom + (2 * direction.zDir)).setType(edgeMaterial);
+            world.getBlockAt(xBottom + (2 * direction.xDir), originalLocation.getBlockY(), zBottom + (3 * direction.zDir)).setType(edgeMaterial);
+        }
+    }
+
     public void addToSpace(Piece piece) {
         pieces.add(piece);
         updateSpace();

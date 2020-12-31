@@ -2,7 +2,10 @@ package io.guthub.kbatesCS.monopoly;
 
 import io.guthub.kbatesCS.board.Board;
 import io.guthub.kbatesCS.board.Piece;
+import io.guthub.kbatesCS.boardSpaces.BoardSpace;
+import io.guthub.kbatesCS.boardSpaces.HousingSpace;
 import io.guthub.kbatesCS.inventoryHandlers.GameHotBarHandler;
+import io.guthub.kbatesCS.inventoryHandlers.ScoreboardHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -76,7 +79,11 @@ public class Game {
         if (numRolls == 0) {
             return false;
         }
-        return true;
+        BoardSpace currentSpace = gameBoard.getSpace(pieces.get(0).getCurrentLocation());
+        if (currentSpace instanceof HousingSpace) {
+            return ((HousingSpace) currentSpace).buyProperty(pieces.get(0));
+        }
+        return false;
 
     }
 
@@ -92,6 +99,7 @@ public class Game {
         }
 
         Collections.shuffle(pieces);
+        ScoreboardHandler.updatePieces();
     }
 
     public boolean addPiece(Player player, Material material) {
@@ -130,5 +138,9 @@ public class Game {
             }
         }
         return false;
+    }
+
+    public ArrayList<Piece> getPieces() {
+        return pieces;
     }
 }

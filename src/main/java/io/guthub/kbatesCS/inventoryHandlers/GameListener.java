@@ -28,7 +28,9 @@ public class GameListener implements Listener {
                 e.getPlayer().sendMessage("Your turn is not over yet");
             }
         } else if (itemName.equalsIgnoreCase("buy space")) {
-
+            if (!GameManager.getGame().buySpace()) {
+                e.getPlayer().sendMessage("Can not buy this space right now");
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package io.guthub.kbatesCS.board;
 
 import io.guthub.kbatesCS.boardSpaces.BoardSpace;
+import io.guthub.kbatesCS.inventoryHandlers.ScoreboardHandler;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -21,6 +22,7 @@ public class Piece {
 
     public void charge(int charge) {
         money -= charge;
+        ScoreboardHandler.updateScoreboard();
     }
 
     public int getCurrentLocation() {
@@ -38,6 +40,10 @@ public class Piece {
 
     public Material getMaterial() {
         return this.material;
+    }
+
+    public int getMoney() {
+        return money;
     }
 
     public Player getPlayer() {

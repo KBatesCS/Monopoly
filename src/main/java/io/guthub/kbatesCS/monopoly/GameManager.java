@@ -1,5 +1,7 @@
 package io.guthub.kbatesCS.monopoly;
 
+import io.guthub.kbatesCS.board.Piece;
+import io.guthub.kbatesCS.inventoryHandlers.ScoreboardHandler;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -26,6 +28,8 @@ public class GameManager {
             return false;
         }
         game.startGame();
+        ScoreboardHandler.updateScoreboard();
+
         return true;
     }
 
@@ -47,6 +51,10 @@ public class GameManager {
             return false;
         }
         return game.playerInGame(player);
+    }
+
+    public static ArrayList<Piece> getPieces() {
+        return game.getPieces();
     }
 
     public static boolean gameStarted() {
