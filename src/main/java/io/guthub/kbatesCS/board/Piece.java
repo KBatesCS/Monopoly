@@ -1,6 +1,6 @@
-package io.guthub.kbates23.board;
+package io.guthub.kbatesCS.board;
 
-import io.guthub.kbates23.boardSpaces.BoardSpace;
+import io.guthub.kbatesCS.boardSpaces.BoardSpace;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 

@@ -1,4 +1,4 @@
-package io.guthub.kbates23.board;
+package io.guthub.kbatesCS.board;
 
 public enum Direction {
     NORTH(-1, -1),

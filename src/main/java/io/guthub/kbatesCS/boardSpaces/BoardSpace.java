@@ -1,12 +1,10 @@
-package io.guthub.kbates23.boardSpaces;
+package io.guthub.kbatesCS.boardSpaces;
 
-import io.guthub.kbates23.board.Direction;
-import io.guthub.kbates23.board.Piece;
-import org.bukkit.Bukkit;
+import io.guthub.kbatesCS.board.Direction;
+import io.guthub.kbatesCS.board.Piece;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
-package io.guthub.kbates23.monopoly;
+package io.guthub.kbatesCS.monopoly;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import io.guthub.kbates23.commandHandlers.*;
+import io.guthub.kbatesCS.commandHandlers.*;
 
 public final class Main extends JavaPlugin {
 
@@ -17,6 +17,6 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        GameManager.endAllGames();
+        GameManager.endGame();
     }
 }

@@ -1,13 +1,11 @@
-package io.guthub.kbates23.monopoly;
+package io.guthub.kbatesCS.monopoly;
 
-import io.guthub.kbates23.board.Board;
-import io.guthub.kbates23.board.Piece;
-import org.bukkit.Bukkit;
+import io.guthub.kbatesCS.board.Board;
+import io.guthub.kbatesCS.board.Piece;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,13 +14,11 @@ public class Game {
 
     private Board gameBoard;
     private ArrayList<Piece> pieces;
-    private int gameNum;
     private boolean gameStarted;
     private HashMap<Player, ItemStack[]> playerInventories;
 
-    public Game(Location playerLocation, int gameNum) {
+    public Game(Location playerLocation) {
         gameBoard = new Board(playerLocation);
-        this.gameNum = gameNum;
         this.pieces = new ArrayList<>();
         gameStarted = false;
     }
@@ -63,13 +59,15 @@ public class Game {
         gameStarted = false;
     }
 
-    public int getGameNum() {
-        return gameNum;
+    public boolean hasStarted() {
+        return gameStarted;
     }
 
-    @Override public boolean equals(Object o) {
-        if (o instanceof Game) {
-            return (((Game) o).gameNum == this.gameNum);
+    public boolean playerInGame(Player player) {
+        for (Piece piece: pieces) {
+            if (piece.getPlayer().equals(player)) {
+                return true;
+            }
         }
         return false;
     }

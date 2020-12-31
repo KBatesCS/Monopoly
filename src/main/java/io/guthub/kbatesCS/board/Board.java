@@ -1,16 +1,19 @@
-package io.guthub.kbates23.board;
+package io.guthub.kbatesCS.board;
 
-import io.guthub.kbates23.boardSpaces.*;
+import io.guthub.kbatesCS.boardSpaces.*;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.data.Rail;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.zip.ZipInputStream;
 
 public class Board {
 
@@ -153,14 +156,15 @@ public class Board {
         int z = (int) playerLocation.getZ();
 
         try {
-            BufferedImage monopolyImage = ImageIO.read(new File("C:\\Users\\kevin\\Documents\\monopoly\\src\\main\\java\\io\\guthub\\kbates23\\board\\MonopolyMap.png"));
+            BufferedImage monopolyImage = ImageIO.read(new File("C:\\Users\\kevin\\Documents\\monopoly\\src\\main\\java\\io\\guthub\\kbatesCS\\board\\image\\MonopolyMap.png"));
+            //BufferedImage monopolyImage = ImageIO.read(Board.class.getResourceAsStream("image\\MonopolyMap.png"));
             for (int xCord = 0; xCord < 108; xCord++) {
                 for (int yCord = 0; yCord < 108; yCord++) {
                     Color pixel = new Color(monopolyImage.getRGB(xCord, yCord));
                     world.getBlockAt(x + xCord, y, z + yCord).setType(getMaterial(pixel));
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("error in drawing board (probably issue with image path)");
         }
     }

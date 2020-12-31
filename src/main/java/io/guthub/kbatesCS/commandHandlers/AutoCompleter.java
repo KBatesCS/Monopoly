@@ -1,11 +1,11 @@
-package io.guthub.kbates23.commandHandlers;
+package io.guthub.kbatesCS.commandHandlers;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.event.Listener;
-import io.guthub.kbates23.monopoly.Main;
+import io.guthub.kbatesCS.monopoly.Main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +40,8 @@ public class AutoCompleter implements Listener, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command cmd, String s, String[] args) {
         if(cmd.getName().equalsIgnoreCase("join")) {
-            if(args.length == 2) {
-                List<String> list = getContainedMaterials(args[1]);
+            if(args.length == 1) {
+                List<String> list = getContainedMaterials(args[0]);
                 return list;
             }
         }
