@@ -122,7 +122,7 @@ public class Board {
         propertyDivision.put("purple", (new ArrayList<BoardSpace>(Arrays.asList(spaces[11], spaces[13], spaces[14]))));
         propertyDivision.put("orange", (new ArrayList<BoardSpace>(Arrays.asList(spaces[16], spaces[18], spaces[19]))));
         propertyDivision.put("red", (new ArrayList<BoardSpace>(Arrays.asList(spaces[21], spaces[23], spaces[24]))));
-        propertyDivision.put("yellow", (new ArrayList<BoardSpace>(Arrays.asList(spaces[26], spaces[27], spaces[28]))));
+        propertyDivision.put("yellow", (new ArrayList<BoardSpace>(Arrays.asList(spaces[26], spaces[27], spaces[29]))));
         propertyDivision.put("green", (new ArrayList<BoardSpace>(Arrays.asList(spaces[31], spaces[32], spaces[34]))));
         propertyDivision.put("dark blue", (new ArrayList<BoardSpace>(Arrays.asList(spaces[37], spaces[39]))));
         propertyDivision.put("railroad", (new ArrayList<BoardSpace>(Arrays.asList(spaces[5], spaces[15], spaces[25], spaces[35]))));

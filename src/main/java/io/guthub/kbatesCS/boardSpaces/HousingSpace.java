@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class HousingSpace extends BoardSpace{
 
-    private int[] landOnPrices;
+    private int[] rent;
     private int numHouses;
     private Piece owner;
     private int buildingCost;
@@ -17,9 +17,9 @@ public class HousingSpace extends BoardSpace{
 
     public HousingSpace (String name, Direction direction, int locationOnRow, Location originalLocation, int[] costs) {
         super(name, direction, locationOnRow, originalLocation);
-        landOnPrices = new int[6];
+        rent = new int[6];
         for (int i = 0; i < 6; i++) {
-            this.landOnPrices[i] = costs[i];
+            this.rent[i] = costs[i];
         }
         buildingCost = costs[6];
         buyCost = costs[7];
@@ -29,7 +29,7 @@ public class HousingSpace extends BoardSpace{
 
     public void performSpaceAction(Piece piece) {
         if (owner != null) {
-            piece.charge(landOnPrices[numHouses]);
+            piece.charge(rent[numHouses]);
         }
     }
 

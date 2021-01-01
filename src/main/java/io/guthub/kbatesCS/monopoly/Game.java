@@ -4,6 +4,7 @@ import io.guthub.kbatesCS.board.Board;
 import io.guthub.kbatesCS.board.Piece;
 import io.guthub.kbatesCS.boardSpaces.BoardSpace;
 import io.guthub.kbatesCS.boardSpaces.HousingSpace;
+import io.guthub.kbatesCS.boardSpaces.RailRoadSpace;
 import io.guthub.kbatesCS.inventoryHandlers.GameHotBarHandler;
 import io.guthub.kbatesCS.inventoryHandlers.ScoreboardHandler;
 import org.bukkit.Bukkit;
@@ -83,6 +84,8 @@ public class Game {
         BoardSpace currentSpace = gameBoard.getSpace(pieces.get(0).getCurrentLocation());
         if (currentSpace instanceof HousingSpace) {
             return ((HousingSpace) currentSpace).buyProperty(pieces.get(0));
+        } else if (currentSpace instanceof RailRoadSpace) {
+            return ((RailRoadSpace) currentSpace).buyProperty(pieces.get(0));
         }
         return false;
 

@@ -2,6 +2,7 @@ package io.guthub.kbatesCS.inventoryHandlers;
 
 import io.guthub.kbatesCS.boardSpaces.BoardSpace;
 import io.guthub.kbatesCS.boardSpaces.HousingSpace;
+import io.guthub.kbatesCS.boardSpaces.RailRoadSpace;
 import io.guthub.kbatesCS.monopoly.GameManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -33,6 +34,31 @@ public class GameHotBarHandler {
         for (int i = 0; i < 2; i++) {
             propertyViewInventory.setItem(0 + (i * 9), createPropertyItem(properties.get("brown").get(i), Material.BROWN_WOOL));
         }
+        for (int i = 0; i < 3; i++) {
+            propertyViewInventory.setItem(1 + (i * 9), createPropertyItem(properties.get("light blue").get(i), Material.LIGHT_BLUE_WOOL));
+        }
+        for (int i = 0; i < 3; i++) {
+            propertyViewInventory.setItem(2 + (i * 9), createPropertyItem(properties.get("purple").get(i), Material.PURPLE_WOOL));
+        }
+        for (int i = 0; i < 3; i++) {
+            propertyViewInventory.setItem(3 + (i * 9), createPropertyItem(properties.get("orange").get(i), Material.ORANGE_WOOL));
+        }
+        for (int i = 0; i < 3; i++) {
+            propertyViewInventory.setItem(4 + (i * 9), createPropertyItem(properties.get("red").get(i), Material.RED_WOOL));
+        }
+        for (int i = 0; i < 3; i++) {
+            propertyViewInventory.setItem(5 + (i * 9), createPropertyItem(properties.get("yellow").get(i), Material.YELLOW_WOOL));
+        }
+        for (int i = 0; i < 3; i++) {
+            propertyViewInventory.setItem(6 + (i * 9), createPropertyItem(properties.get("green").get(i), Material.GREEN_WOOL));
+        }
+        for (int i = 0; i < 2; i++) {
+            propertyViewInventory.setItem(7 + (i * 9), createPropertyItem(properties.get("dark blue").get(i), Material.BLUE_WOOL));
+        }
+
+        for (int i = 0; i < 4; i++) {
+            propertyViewInventory.setItem(i + 39, createPropertyItem(properties.get("railroad").get(i), Material.BLACK_WOOL));
+        }
 
         return propertyViewInventory;
 
@@ -46,6 +72,8 @@ public class GameHotBarHandler {
 
         if (space instanceof HousingSpace) {
             propertyMeta.setLore(((HousingSpace) space).getLore());
+        } else if (space instanceof RailRoadSpace) {
+            propertyMeta.setLore(((RailRoadSpace) space).getLore());
         }
 
         property.setItemMeta(propertyMeta);

@@ -56,9 +56,8 @@ public class Piece {
             return false;
         }
         Piece piece = (Piece) obj;
-        System.out.println("remember to add the piece.players equals"); //had to be taken out for testing
-        return ((piece.material.equals(this.material))
-                && (piece.money == this.money) && (piece.currentSpace == this.currentSpace));
+        //System.out.println("remember to add the piece.players equals"); //had to be taken out for testing
+        return piece.getPlayer().equals(this.getPlayer());
     }
 
     @Override
