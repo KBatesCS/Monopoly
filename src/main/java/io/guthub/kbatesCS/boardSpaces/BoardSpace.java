@@ -127,6 +127,10 @@ public abstract class BoardSpace {
         }
     }
 
+    public String getName() {
+        return displayName;
+    }
+
     private void buildPiece(int pieceNum, Material material) {
 
         int xBottom = cornerX;

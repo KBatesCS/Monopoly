@@ -22,6 +22,7 @@ public class Game {
     private ArrayList<Piece> pieces;
     private boolean gameStarted;
     private HashMap<Player, ItemStack[]> playerInventories;
+    GameHotBarHandler hotBarHandler;
 
     //game running code
     private boolean diceRolled;
@@ -90,7 +91,7 @@ public class Game {
     public void startGame() {
         gameStarted = true;
         playerInventories = new HashMap<Player, ItemStack[]>();
-        GameHotBarHandler hotBarHandler = new GameHotBarHandler();
+        hotBarHandler = new GameHotBarHandler();
         for (Piece piece: pieces) {
             piece.moveToSpace(0, gameBoard.getSpace(0));
             playerInventories.put(piece.getPlayer(), piece.getPlayer().getInventory().getContents());
@@ -100,6 +101,14 @@ public class Game {
 
         Collections.shuffle(pieces);
         ScoreboardHandler.updatePieces();
+    }
+
+    public HashMap<String, ArrayList<BoardSpace>> getBoardHash() {
+        return gameBoard.getPropertyDivision();
+    }
+
+    public GameHotBarHandler getHotBarHandler() {
+        return hotBarHandler;
     }
 
     public boolean addPiece(Player player, Material material) {

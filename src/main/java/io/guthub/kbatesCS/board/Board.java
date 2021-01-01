@@ -13,6 +13,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.zip.ZipInputStream;
 
 public class Board {
@@ -20,6 +23,7 @@ public class Board {
     private World world;
     private BoardSpace[] spaces;
     private Location originalLocation;
+    private HashMap<String, ArrayList<BoardSpace>> propertyDivision;
 
     /**
      * creates a full board
@@ -28,7 +32,9 @@ public class Board {
     public Board(Location playerLocation) {
         originalLocation = playerLocation;
         spaces = new BoardSpace[40];
+        propertyDivision = new HashMap<>();
         initializeSpaces();
+        initializeSpaceHashmap();
         world = playerLocation.getWorld();
         buildGame();
     }
@@ -108,6 +114,23 @@ public class Board {
         spaces[37] = new HousingSpace("Park Place", Direction.WEST, 7, originalLocation, new int[]{35, 175, 500, 1100, 1300, 1500, 200, 350, 175});
         spaces[38] = new TaxSpace("Luxury Tax", Direction.WEST, 8, originalLocation);
         spaces[39] = new HousingSpace("Boardwalk", Direction.WEST, 9, originalLocation, new int[]{50, 200, 600, 1400, 1700, 2000, 200, 400, 200});
+    }
+
+    private void initializeSpaceHashmap() {
+        propertyDivision.put("brown", (new ArrayList<BoardSpace>(Arrays.asList(spaces[1], spaces[3]))));
+        propertyDivision.put("light blue", (new ArrayList<BoardSpace>(Arrays.asList(spaces[6], spaces[8], spaces[9]))));
+        propertyDivision.put("purple", (new ArrayList<BoardSpace>(Arrays.asList(spaces[11], spaces[13], spaces[14]))));
+        propertyDivision.put("orange", (new ArrayList<BoardSpace>(Arrays.asList(spaces[16], spaces[18], spaces[19]))));
+        propertyDivision.put("red", (new ArrayList<BoardSpace>(Arrays.asList(spaces[21], spaces[23], spaces[24]))));
+        propertyDivision.put("yellow", (new ArrayList<BoardSpace>(Arrays.asList(spaces[26], spaces[27], spaces[28]))));
+        propertyDivision.put("green", (new ArrayList<BoardSpace>(Arrays.asList(spaces[31], spaces[32], spaces[34]))));
+        propertyDivision.put("dark blue", (new ArrayList<BoardSpace>(Arrays.asList(spaces[37], spaces[39]))));
+        propertyDivision.put("railroad", (new ArrayList<BoardSpace>(Arrays.asList(spaces[5], spaces[15], spaces[25], spaces[35]))));
+        propertyDivision.put("essentials", (new ArrayList<BoardSpace>(Arrays.asList(spaces[12], spaces[28]))));
+    }
+
+    public HashMap<String, ArrayList<BoardSpace>> getPropertyDivision() {
+        return propertyDivision;
     }
 
     public BoardSpace getSpace(int space) {

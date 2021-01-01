@@ -1,11 +1,13 @@
 package io.guthub.kbatesCS.monopoly;
 
 import io.guthub.kbatesCS.board.Piece;
+import io.guthub.kbatesCS.boardSpaces.BoardSpace;
 import io.guthub.kbatesCS.inventoryHandlers.ScoreboardHandler;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameManager {
 
@@ -31,6 +33,10 @@ public class GameManager {
         ScoreboardHandler.updateScoreboard();
 
         return true;
+    }
+
+    public static HashMap<String, ArrayList<BoardSpace>> getBoardHash() {
+        return game.getBoardHash();
     }
 
     public static boolean endGame() {

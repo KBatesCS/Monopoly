@@ -4,6 +4,8 @@ import io.guthub.kbatesCS.board.Direction;
 import io.guthub.kbatesCS.board.Piece;
 import org.bukkit.Location;
 
+import java.util.ArrayList;
+
 public class HousingSpace extends BoardSpace{
 
     private int[] landOnPrices;
@@ -69,5 +71,22 @@ public class HousingSpace extends BoardSpace{
 
     public int getCost() {
         return buyCost;
+    }
+
+    public ArrayList<String> getLore() {
+        ArrayList<String> lore = new ArrayList<String>();
+
+        String temp;
+
+        temp = "Owner: ";
+        if (owner == null) {
+            temp += "none";
+        } else {
+            temp += owner.getPlayer().getDisplayName();
+        }
+
+        lore.add(temp);
+
+        return lore;
     }
 }

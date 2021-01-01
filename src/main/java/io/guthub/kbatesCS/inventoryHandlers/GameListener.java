@@ -31,6 +31,10 @@ public class GameListener implements Listener {
             if (!GameManager.getGame().buySpace()) {
                 e.getPlayer().sendMessage("Can not buy this space right now");
             }
+        } else if (itemName.equalsIgnoreCase("View Properties")) {
+            if (!GameManager.getGame().buySpace()) {
+                e.getPlayer().openInventory(GameManager.getGame().getHotBarHandler().getPropertyViewInventory());
+            }
         }
     }
 
