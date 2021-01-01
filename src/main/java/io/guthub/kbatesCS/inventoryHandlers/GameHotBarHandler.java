@@ -1,6 +1,7 @@
 package io.guthub.kbatesCS.inventoryHandlers;
 
 import io.guthub.kbatesCS.boardSpaces.BoardSpace;
+import io.guthub.kbatesCS.boardSpaces.EssentialsSpace;
 import io.guthub.kbatesCS.boardSpaces.HousingSpace;
 import io.guthub.kbatesCS.boardSpaces.RailRoadSpace;
 import io.guthub.kbatesCS.monopoly.GameManager;
@@ -57,7 +58,11 @@ public class GameHotBarHandler {
         }
 
         for (int i = 0; i < 4; i++) {
-            propertyViewInventory.setItem(i + 39, createPropertyItem(properties.get("railroad").get(i), Material.BLACK_WOOL));
+            propertyViewInventory.setItem(i + 40, createPropertyItem(properties.get("railroad").get(i), Material.BLACK_WOOL));
+        }
+
+        for (int i = 0; i < 2; i++) {
+            propertyViewInventory.setItem(i + 37, createPropertyItem(properties.get("essentials").get(i), Material.CYAN_WOOL));
         }
 
         return propertyViewInventory;
@@ -69,11 +74,12 @@ public class GameHotBarHandler {
         ItemMeta propertyMeta = property.getItemMeta();
         propertyMeta.setDisplayName(space.getName());
 
-
         if (space instanceof HousingSpace) {
             propertyMeta.setLore(((HousingSpace) space).getLore());
         } else if (space instanceof RailRoadSpace) {
             propertyMeta.setLore(((RailRoadSpace) space).getLore());
+        } else if (space instanceof EssentialsSpace) {
+            propertyMeta.setLore(((EssentialsSpace) space).getLore());
         }
 
         property.setItemMeta(propertyMeta);

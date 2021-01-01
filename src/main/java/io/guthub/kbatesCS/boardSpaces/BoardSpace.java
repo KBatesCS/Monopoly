@@ -1,5 +1,6 @@
 package io.guthub.kbatesCS.boardSpaces;
 
+import io.guthub.kbatesCS.board.Board;
 import io.guthub.kbatesCS.board.Direction;
 import io.guthub.kbatesCS.board.Piece;
 import org.bukkit.Location;
@@ -176,4 +177,13 @@ public abstract class BoardSpace {
     }
 
     public abstract void performSpaceAction(Piece piece);
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof BoardSpace)) {
+            return false;
+        }
+        BoardSpace space = (BoardSpace) o;
+        return ((space.getName().equalsIgnoreCase(this.getName())));
+    }
 }
