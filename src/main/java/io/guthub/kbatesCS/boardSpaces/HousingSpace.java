@@ -32,7 +32,7 @@ public class HousingSpace extends BoardSpace{
     }
 
     public void performSpaceAction(Piece piece) {
-        if (owner != null) {
+        if ((owner != null) && (!owner.getPlayer().equals(piece.getPlayer()))) {
             piece.charge(rent[numHouses]);
         }
     }
@@ -101,7 +101,6 @@ public class HousingSpace extends BoardSpace{
     public int mortgageProperty(int houses) {
         if ((numHouses - houses) < 0) {
             numHouses -= houses;
-
         }
         return 0;
     }

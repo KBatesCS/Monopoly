@@ -29,6 +29,7 @@ public class Game {
     //game running code
     private boolean diceRolled;
     private int numRolls;
+    private int lastRoll;
 
 
     public Game(Location playerLocation) {
@@ -50,6 +51,10 @@ public class Game {
         return true;
     }
 
+    public int getLastRoll() {
+        return lastRoll;
+    }
+
     public boolean rollDice() {
         if (diceRolled) {
             return false;
@@ -57,6 +62,7 @@ public class Game {
         numRolls++;
         int roll1 = (int) (Math.random() * 6 + 1);
         int roll2 = (int) (Math.random() * 6 + 1);
+        lastRoll = roll1 + roll2;
         if ((roll1 == roll2) && (numRolls == 3)) {
             //to jail you go
         } else if (roll1 != roll2) {

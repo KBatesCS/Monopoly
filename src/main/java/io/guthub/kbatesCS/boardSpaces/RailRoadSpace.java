@@ -98,7 +98,7 @@ public class RailRoadSpace extends BoardSpace {
 
     @Override
     public void performSpaceAction(Piece piece) {
-        if (owner != null) {
+        if ((owner != null) && (!owner.getPlayer().equals(piece.getPlayer()))) {
             piece.charge(rent[numOwned() - 1]);
         }
     }

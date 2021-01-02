@@ -182,7 +182,7 @@ public abstract class BoardSpace {
                 zBottom += direction.zDir * 2;
             }
         }
-        System.out.println("building on space: " + locationOnRow + ", piece #" + pieceNum + ", x:" + xBottom + ", z:" + zBottom);
+        //System.out.println("building on space: " + locationOnRow + ", piece #" + pieceNum + ", x:" + xBottom + ", z:" + zBottom);
         world.getBlockAt(xBottom, originalLocation.getBlockY() + 1, zBottom).setType(material);
         world.getBlockAt(xBottom + direction.xDir, originalLocation.getBlockY() + 1, zBottom).setType(material);
         world.getBlockAt(xBottom, originalLocation.getBlockY() + 1, zBottom + direction.zDir).setType(material);

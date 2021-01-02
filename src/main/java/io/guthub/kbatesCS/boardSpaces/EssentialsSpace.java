@@ -102,11 +102,11 @@ public class EssentialsSpace extends BoardSpace {
 
     @Override
     public void performSpaceAction(Piece piece) {
-        if (owner != null) {
+        if ((owner != null) && (!owner.getPlayer().equals(piece.getPlayer()))) {
             if (numOwned() == 1) {
-                //multiply by 4
+                piece.charge(GameManager.getGame().getLastRoll() * 4);
             } else {
-                //multiply by 10
+                piece.charge(GameManager.getGame().getLastRoll() * 10);
             }
         }
     }

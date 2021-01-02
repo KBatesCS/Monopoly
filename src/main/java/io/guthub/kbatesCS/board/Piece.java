@@ -35,6 +35,7 @@ public class Piece {
             currentSpace.removeFromSpace(this);
         }
         newSpace.addToSpace(this);
+        newSpace.performSpaceAction(this);
         currentSpace = newSpace;
     }
 
