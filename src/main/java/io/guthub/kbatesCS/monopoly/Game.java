@@ -158,4 +158,8 @@ public class Game {
     public ArrayList<Piece> getPieces() {
         return pieces;
     }
+
+    public BoardSpace getSpace(int space) {
+        return gameBoard.getSpace(space);
+    }
 }

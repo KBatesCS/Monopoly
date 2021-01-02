@@ -47,13 +47,55 @@ public class HousingSpace extends BoardSpace{
         return true;
     }
 
-    public boolean addHouse(int newHouses) {
-        if ((numHouses + newHouses) > 5) {
+    public boolean addHouse(Player player) {
+        System.out.println("adding house");
+        if ((numHouses + 1) > 5) {
             return false;
         }
-        numHouses += newHouses;
+        if (owner == null) {
+            return false;
+        }
+        if (owner.getMoney() < houseCost) {
+            return false;
+        }
+        if (!owner.getPlayer().equals(player)) {
+            return false;
+        }
+
+        if (!allColorsOwned()) {
+            return false;
+        }
+        if (!canEvenlyAddHouse()) {
+            return false;
+        }
+        owner.charge(houseCost);
+        numHouses++;
         updateHouses();
         return true;
+    }
+
+    public boolean canEvenlyAddHouse() {
+        HashMap<String, ArrayList<BoardSpace>> boardSpaces = GameManager.getBoardHash();
+
+        for (HashMap.Entry mapElement : boardSpaces.entrySet()) {
+            String key = (String)mapElement.getKey();
+
+            ArrayList<BoardSpace> value = ((ArrayList<BoardSpace>) mapElement.getValue());
+            if ((value.get(0) instanceof HousingSpace) && (value.contains(this))) {
+                for (BoardSpace space: value) {
+                    if (((HousingSpace) space).getNumHouses() < numHouses) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public int getNumHouses() {
+        return numHouses;
     }
 
     public int mortgageProperty(int houses) {
@@ -76,8 +118,10 @@ public class HousingSpace extends BoardSpace{
         return buyCost;
     }
 
-    public ArrayList<String> getLore() {
+    public ArrayList<String> getLore(Player player) {
         ArrayList<String> lore = new ArrayList<String>();
+
+        lore.add("location: " + this.getLocationOnBoard());
 
         String temp;
 
@@ -89,8 +133,8 @@ public class HousingSpace extends BoardSpace{
         }
         lore.add(temp);
 
-        if (allColorsOwned()) {
-            lore.add(ChatColor.RED + "BUY HOUSES");
+        if ((allColorsOwned()) && (player.equals(owner.getPlayer()))) {
+            lore.add(ChatColor.DARK_AQUA + "Click to buy house");
         }
 
         temp = "";

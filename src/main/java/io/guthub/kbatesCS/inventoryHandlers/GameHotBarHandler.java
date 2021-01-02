@@ -27,55 +27,61 @@ public class GameHotBarHandler {
     public GameHotBarHandler() {
     }
 
-    public Inventory getPropertyViewInventory() {
+    public Inventory getPropertyViewInventory(Player player) {
         Inventory propertyViewInventory = Bukkit.createInventory(null, 45, "properties");
 
         HashMap<String, ArrayList<BoardSpace>> properties = GameManager.getBoardHash();
 
         for (int i = 0; i < 2; i++) {
-            propertyViewInventory.setItem(0 + (i * 9), createPropertyItem(properties.get("brown").get(i), Material.BROWN_WOOL));
+            propertyViewInventory.setItem(0 + (i * 9), createPropertyItem(properties.get("brown").get(i), Material.BROWN_DYE, player));
         }
         for (int i = 0; i < 3; i++) {
-            propertyViewInventory.setItem(1 + (i * 9), createPropertyItem(properties.get("light blue").get(i), Material.LIGHT_BLUE_WOOL));
+            propertyViewInventory.setItem(1 + (i * 9), createPropertyItem(properties.get("light blue").get(i), Material.LIGHT_BLUE_DYE, player));
         }
         for (int i = 0; i < 3; i++) {
-            propertyViewInventory.setItem(2 + (i * 9), createPropertyItem(properties.get("purple").get(i), Material.PURPLE_WOOL));
+            propertyViewInventory.setItem(2 + (i * 9), createPropertyItem(properties.get("purple").get(i), Material.PURPLE_DYE, player));
         }
         for (int i = 0; i < 3; i++) {
-            propertyViewInventory.setItem(3 + (i * 9), createPropertyItem(properties.get("orange").get(i), Material.ORANGE_WOOL));
+            propertyViewInventory.setItem(3 + (i * 9), createPropertyItem(properties.get("orange").get(i), Material.ORANGE_DYE, player));
         }
         for (int i = 0; i < 3; i++) {
-            propertyViewInventory.setItem(4 + (i * 9), createPropertyItem(properties.get("red").get(i), Material.RED_WOOL));
+            propertyViewInventory.setItem(4 + (i * 9), createPropertyItem(properties.get("red").get(i), Material.RED_DYE, player));
         }
         for (int i = 0; i < 3; i++) {
-            propertyViewInventory.setItem(5 + (i * 9), createPropertyItem(properties.get("yellow").get(i), Material.YELLOW_WOOL));
+            propertyViewInventory.setItem(5 + (i * 9), createPropertyItem(properties.get("yellow").get(i), Material.YELLOW_DYE, player));
         }
         for (int i = 0; i < 3; i++) {
-            propertyViewInventory.setItem(6 + (i * 9), createPropertyItem(properties.get("green").get(i), Material.GREEN_WOOL));
+            propertyViewInventory.setItem(6 + (i * 9), createPropertyItem(properties.get("green").get(i), Material.GREEN_DYE, player));
         }
         for (int i = 0; i < 2; i++) {
-            propertyViewInventory.setItem(7 + (i * 9), createPropertyItem(properties.get("dark blue").get(i), Material.BLUE_WOOL));
+            propertyViewInventory.setItem(7 + (i * 9), createPropertyItem(properties.get("dark blue").get(i), Material.BLUE_DYE, player));
         }
 
         for (int i = 0; i < 4; i++) {
-            propertyViewInventory.setItem(i + 40, createPropertyItem(properties.get("railroad").get(i), Material.BLACK_WOOL));
+            propertyViewInventory.setItem(i + 40, createPropertyItem(properties.get("railroad").get(i), Material.BLACK_DYE, player));
         }
 
         for (int i = 0; i < 2; i++) {
-            propertyViewInventory.setItem(i + 37, createPropertyItem(properties.get("essentials").get(i), Material.CYAN_WOOL));
+            propertyViewInventory.setItem(i + 37, createPropertyItem(properties.get("essentials").get(i), Material.CYAN_DYE, player));
         }
 
         return propertyViewInventory;
 
     }
 
-    private ItemStack createPropertyItem(BoardSpace space, Material material) {
+    private ItemStack createPropertyItem(BoardSpace space, Material material, Player player) {
         ItemStack property = new ItemStack(material);
         ItemMeta propertyMeta = property.getItemMeta();
         propertyMeta.setDisplayName(space.getName());
+        if (space instanceof HousingSpace) {
+            propertyMeta.setLocalizedName("housing space");
+        } else {
+            propertyMeta.setLocalizedName("railroad utility");
+        }
+        propertyMeta.setCustomModelData(space.getLocationOnBoard());
 
         if (space instanceof HousingSpace) {
-            propertyMeta.setLore(((HousingSpace) space).getLore());
+            propertyMeta.setLore(((HousingSpace) space).getLore(player));
         } else if (space instanceof RailRoadSpace) {
             propertyMeta.setLore(((RailRoadSpace) space).getLore());
         } else if (space instanceof EssentialsSpace) {

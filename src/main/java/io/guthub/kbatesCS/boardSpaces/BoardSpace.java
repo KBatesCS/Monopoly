@@ -17,6 +17,7 @@ public abstract class BoardSpace {
     private ArrayList<Piece> pieces = new ArrayList<Piece>();
     private Direction direction;
     private int locationOnRow;
+    private int locationOnBoard;
     private Location originalLocation;
     private World world;
     private int cornerX;
@@ -26,10 +27,12 @@ public abstract class BoardSpace {
         this.displayName = name;
         this.direction = direction;
         this.locationOnRow = locationOnRow;
+        this.locationOnBoard = locationOnRow;
         this.originalLocation = originalLocation;
         this.world = originalLocation.getWorld();
         switch (direction) {
             case SOUTH:
+                locationOnBoard += 20;
                 cornerX = originalLocation.getBlockX();
                 cornerZ = originalLocation.getBlockZ();
                 if (locationOnRow != 0) {
@@ -37,6 +40,7 @@ public abstract class BoardSpace {
                 }
                 break;
             case WEST:
+                locationOnBoard += 30;
                 cornerX = originalLocation.getBlockX() + 107;
                 cornerZ = originalLocation.getBlockZ();
                 if (locationOnRow != 0) {
@@ -51,6 +55,7 @@ public abstract class BoardSpace {
                 }
                 break;
             case EAST:
+                locationOnBoard += 10;
                 cornerX = originalLocation.getBlockX();
                 cornerZ = originalLocation.getBlockZ() + 107;
                 if (locationOnRow != 0) {
@@ -130,6 +135,10 @@ public abstract class BoardSpace {
 
     public String getName() {
         return displayName;
+    }
+
+    public int getLocationOnBoard() {
+        return locationOnBoard;
     }
 
     private void buildPiece(int pieceNum, Material material) {
