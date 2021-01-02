@@ -16,7 +16,7 @@ public class Piece {
         this.material = material;
         this.player = player;
         currentLocation = 0;
-        money = 1500;
+        money = 9999;
         currentLocation = 0;
     }
 

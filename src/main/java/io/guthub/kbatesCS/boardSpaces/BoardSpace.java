@@ -133,6 +133,14 @@ public abstract class BoardSpace {
         }
     }
 
+    public int getCornerX() {
+        return cornerX;
+    }
+
+    public int getCornerZ() {
+        return cornerZ;
+    }
+
     public String getName() {
         return displayName;
     }

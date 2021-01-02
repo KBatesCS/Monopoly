@@ -68,11 +68,13 @@ public class GameListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
-        if (e.getCurrentItem().getItemMeta().getLocalizedName().equalsIgnoreCase("housing space")) {
-            System.out.println("here1");
-            ((HousingSpace) GameManager.getGame().getSpace(e.getCurrentItem().getItemMeta().getCustomModelData())).addHouse(player);
-            System.out.println("here2");
-            player.openInventory(GameManager.getGame().getHotBarHandler().getPropertyViewInventory(player));
+        if ((e.getCurrentItem() != null) && (e.getCurrentItem().hasItemMeta()) && (e.getCurrentItem().getItemMeta().hasLocalizedName())) {
+            if (e.getCurrentItem().getItemMeta().getLocalizedName().equalsIgnoreCase("housing space")) {
+                System.out.println("here1");
+                ((HousingSpace) GameManager.getGame().getSpace(e.getCurrentItem().getItemMeta().getCustomModelData())).addHouse(player);
+                System.out.println("here2");
+                player.openInventory(GameManager.getGame().getHotBarHandler().getPropertyViewInventory(player));
+            }
         }
         if (GameManager.playerInGame(player) && GameManager.gameStarted()) {
             e.setCancelled(true);
