@@ -3,7 +3,7 @@ package io.guthub.kbatesCS.monopoly;
 import io.guthub.kbatesCS.board.Board;
 import io.guthub.kbatesCS.board.Piece;
 import io.guthub.kbatesCS.boardSpaces.BoardSpace;
-import io.guthub.kbatesCS.boardSpaces.EssentialsSpace;
+import io.guthub.kbatesCS.boardSpaces.UtilitySpace;
 import io.guthub.kbatesCS.boardSpaces.HousingSpace;
 import io.guthub.kbatesCS.boardSpaces.RailRoadSpace;
 import io.guthub.kbatesCS.inventoryHandlers.GameHotBarHandler;
@@ -93,8 +93,8 @@ public class Game {
             return ((HousingSpace) currentSpace).buyProperty(pieces.get(0));
         } else if (currentSpace instanceof RailRoadSpace) {
             return ((RailRoadSpace) currentSpace).buyProperty(pieces.get(0));
-        } else if (currentSpace instanceof EssentialsSpace) {
-            return ((EssentialsSpace) currentSpace).buyProperty(pieces.get(0));
+        } else if (currentSpace instanceof UtilitySpace) {
+            return ((UtilitySpace) currentSpace).buyProperty(pieces.get(0));
         }
         return false;
 

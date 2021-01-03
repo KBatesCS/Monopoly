@@ -1,25 +1,16 @@
 package io.guthub.kbatesCS.inventoryHandlers;
 
-import io.guthub.kbatesCS.boardSpaces.BoardSpace;
-import io.guthub.kbatesCS.boardSpaces.EssentialsSpace;
-import io.guthub.kbatesCS.boardSpaces.HousingSpace;
-import io.guthub.kbatesCS.boardSpaces.RailRoadSpace;
+import io.guthub.kbatesCS.boardSpaces.*;
 import io.guthub.kbatesCS.monopoly.GameManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class GameHotBarHandler {
@@ -76,19 +67,14 @@ public class GameHotBarHandler {
     private ItemStack createPropertyItem(BoardSpace space, Material owningMaterial, Material notOwningMaterial, Player player) {
         ItemStack property;
         Player owner = null;
+        if (!(space instanceof BuyableBoardSpace)) {
+            return new ItemStack(Material.AIR);
+        }
 
-        if (space instanceof HousingSpace) {
-            if (((HousingSpace) space).getOwner() != null) {
-                owner = ((HousingSpace) space).getOwner().getPlayer();
-            }
-        } else if (space instanceof RailRoadSpace) {
-            if (((RailRoadSpace) space).getOwner() != null) {
-                owner = ((RailRoadSpace) space).getOwner().getPlayer();
-            }
-        } else {
-            if (((EssentialsSpace) space).getOwner() != null) {
-                owner = ((EssentialsSpace) space).getOwner().getPlayer();
-            }
+        BuyableBoardSpace buyableSpace = (BuyableBoardSpace) space;
+
+        if (buyableSpace.getOwner() != null) {
+            owner = buyableSpace.getOwner().getPlayer();
         }
 
         if ((owner != null) && (owner.equals(player))) {
@@ -99,6 +85,7 @@ public class GameHotBarHandler {
 
         ItemMeta propertyMeta = property.getItemMeta();
         propertyMeta.setDisplayName(space.getName());
+
         if (space instanceof HousingSpace) {
             propertyMeta.setLocalizedName("housing space");
         } else if (space instanceof RailRoadSpace){
@@ -108,13 +95,8 @@ public class GameHotBarHandler {
         }
         propertyMeta.setCustomModelData(space.getLocationOnBoard());
 
-        if (space instanceof HousingSpace) {
-            propertyMeta.setLore(((HousingSpace) space).getLore(player));
-        } else if (space instanceof RailRoadSpace) {
-            propertyMeta.setLore(((RailRoadSpace) space).getLore());
-        } else if (space instanceof EssentialsSpace) {
-            propertyMeta.setLore(((EssentialsSpace) space).getLore());
-        }
+
+        propertyMeta.setLore(buyableSpace.getLore(player));
 
         property.setItemMeta(propertyMeta);
         return property;

@@ -6,17 +6,12 @@ import org.bukkit.Material;
 import org.bukkit.World;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.zip.ZipInputStream;
 
 public class Board {
 
@@ -86,7 +81,7 @@ public class Board {
         spaces[9] = new HousingSpace("Connecticut Avenue", Direction.NORTH, 9, originalLocation, new int[]{8, 40, 100, 300, 450, 600, 50, 120, 60});
         spaces[10] = new JailSpace("Jail", Direction.EAST, 0, originalLocation);
         spaces[11] = new HousingSpace("St. Charles Place", Direction.EAST, 1, originalLocation, new int[]{10, 50, 150, 450, 625, 750, 100, 140, 70});
-        spaces[12] = new EssentialsSpace("Electric Company", Direction.EAST, 2, originalLocation);
+        spaces[12] = new UtilitySpace("Electric Company", Direction.EAST, 2, originalLocation);
         spaces[13] = new HousingSpace("States Avenue", Direction.EAST, 3, originalLocation, new int[]{10, 50, 150, 450, 625, 750, 100, 140, 70});
         spaces[14] = new HousingSpace("Virginia Avenue", Direction.EAST, 4, originalLocation, new int[]{12, 60, 180, 500, 700, 900, 100, 160, 80});
         spaces[15] = new RailRoadSpace("Pennsylvania RailRoad", Direction.EAST, 5, originalLocation);
@@ -102,7 +97,7 @@ public class Board {
         spaces[25] = new RailRoadSpace("B. & O. Railroad", Direction.SOUTH, 5, originalLocation);
         spaces[26] = new HousingSpace("Atlantic Avenue", Direction.SOUTH, 6, originalLocation, new int[]{22, 110, 330, 800, 975, 1150, 150, 260, 130});
         spaces[27] = new HousingSpace("Ventnor Avenue", Direction.SOUTH, 7, originalLocation, new int[]{22, 110, 330, 800, 975, 1150, 150, 260, 130});
-        spaces[28] = new EssentialsSpace("Water Works", Direction.SOUTH, 8, originalLocation);
+        spaces[28] = new UtilitySpace("Water Works", Direction.SOUTH, 8, originalLocation);
         spaces[29] = new HousingSpace("Marvin Gardens", Direction.SOUTH, 9, originalLocation, new int[]{24, 120, 360, 850, 1025, 1200, 150, 280, 140});
         spaces[30] = new ToJailSpace("Go to Jail", Direction.WEST, 0, originalLocation);
         spaces[31] = new HousingSpace("Pacific Avenue", Direction.WEST, 1, originalLocation, new int[]{26, 130, 390, 900, 1100, 1275, 200, 300, 150});

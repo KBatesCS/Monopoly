@@ -5,11 +5,12 @@ import io.guthub.kbatesCS.board.Piece;
 import io.guthub.kbatesCS.monopoly.GameManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class RailRoadSpace extends BoardSpace {
+public class RailRoadSpace extends BuyableBoardSpace {
 
     private int buyCost;
     private int rent[];
@@ -17,7 +18,7 @@ public class RailRoadSpace extends BoardSpace {
     private int mortgageValue;
 
     public RailRoadSpace (String name, Direction direction, int locationOnRow, Location originalLocation) {
-        super(name, direction, locationOnRow, originalLocation);
+        super(name, direction, locationOnRow, originalLocation, 200, 100);
         buyCost = 200;
         rent = new int[4];
         rent[0] = 25;
@@ -25,17 +26,6 @@ public class RailRoadSpace extends BoardSpace {
         rent[2] = 100;
         rent[3] = 200;
         mortgageValue = 100;
-    }
-
-
-    public boolean buyProperty(Piece piece) {
-        if ((piece.getMoney() < buyCost) || (owner != null)) {
-            return false;
-        }
-        owner = piece;
-        piece.charge(buyCost);
-        this.updateOwnershipDisplay(owner);
-        return true;
     }
 
     public int numOwned() {
@@ -52,11 +42,8 @@ public class RailRoadSpace extends BoardSpace {
         return numOwned;
     }
 
-    public Piece getOwner() {
-        return owner;
-    }
-
-    public ArrayList<String> getLore() {
+    @Override
+    public ArrayList<String> getLore(Player player) {
         ArrayList<String> lore = new ArrayList<String>();
 
         String temp;

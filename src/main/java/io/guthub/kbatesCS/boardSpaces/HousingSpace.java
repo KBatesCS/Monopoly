@@ -11,17 +11,16 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class HousingSpace extends BoardSpace{
+public class HousingSpace extends BuyableBoardSpace {
 
     private int[] rent;
     private int numHouses;
-    private Piece owner;
     private int houseCost;
     private int buyCost;
     private int mortgageValue;
 
     public HousingSpace (String name, Direction direction, int locationOnRow, Location originalLocation, int[] costs) {
-        super(name, direction, locationOnRow, originalLocation);
+        super(name, direction, locationOnRow, originalLocation, costs[7], costs[8]);
         rent = new int[6];
         for (int i = 0; i < 6; i++) {
             this.rent[i] = costs[i];
@@ -29,23 +28,6 @@ public class HousingSpace extends BoardSpace{
         houseCost = costs[6];
         buyCost = costs[7];
         mortgageValue = costs[8];
-        owner = null;
-    }
-
-    public void performSpaceAction(Piece piece) {
-        if ((owner != null) && (!owner.getPlayer().equals(piece.getPlayer()))) {
-            piece.charge(rent[numHouses]);
-        }
-    }
-
-    public boolean buyProperty(Piece piece) {
-        if ((piece.getMoney() < buyCost) || (owner != null)) {
-            return false;
-        }
-        owner = piece;
-        piece.charge(buyCost);
-        this.updateOwnershipDisplay(owner);
-        return true;
     }
 
     public boolean addHouse(Player player) {
@@ -53,6 +35,7 @@ public class HousingSpace extends BoardSpace{
         if ((numHouses + 1) > 5) {
             return false;
         }
+        Piece owner = getOwner();
         if (owner == null) {
             return false;
         }
@@ -97,10 +80,6 @@ public class HousingSpace extends BoardSpace{
 
     public int getNumHouses() {
         return numHouses;
-    }
-
-    public int mortgageProperty() {
-        return 0;
     }
 
     private void updateHouses() {
@@ -193,16 +172,41 @@ public class HousingSpace extends BoardSpace{
         }
     }
 
-    public int getCost() {
-        return buyCost;
+    public boolean allColorsOwned() {
+        HashMap<String, ArrayList<BoardSpace>> boardSpaces = GameManager.getBoardHash();
+
+        for (HashMap.Entry mapElement : boardSpaces.entrySet()) {
+            String key = (String)mapElement.getKey();
+
+            ArrayList<BoardSpace> value = ((ArrayList<BoardSpace>) mapElement.getValue());
+            if ((value.get(0) instanceof HousingSpace) && (value.contains(this))) {
+                if (((HousingSpace) value.get(0)).getOwner() == null) {
+                    return false;
+                }
+                Player owner1 = ((HousingSpace) value.get(0)).getOwner().getPlayer();
+                for (int i = 1; i < value.size(); i++) {
+                    if (((HousingSpace) value.get(i)).getOwner() == null) {
+                        return false;
+                    }
+                    if (!((HousingSpace) value.get(i)).getOwner().getPlayer().equals(owner1)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+        }
+        return false;
     }
 
+    @Override
     public ArrayList<String> getLore(Player player) {
         ArrayList<String> lore = new ArrayList<String>();
 
         lore.add("location: " + this.getLocationOnBoard());
 
         String temp;
+        Piece owner = getOwner();
 
         temp = "Owner: ";
         if (owner == null) {
@@ -246,34 +250,10 @@ public class HousingSpace extends BoardSpace{
         return lore;
     }
 
-    public Piece getOwner() {
-        return owner;
-    }
-
-    public boolean allColorsOwned() {
-        HashMap<String, ArrayList<BoardSpace>> boardSpaces = GameManager.getBoardHash();
-
-        for (HashMap.Entry mapElement : boardSpaces.entrySet()) {
-            String key = (String)mapElement.getKey();
-
-            ArrayList<BoardSpace> value = ((ArrayList<BoardSpace>) mapElement.getValue());
-            if ((value.get(0) instanceof HousingSpace) && (value.contains(this))) {
-                if (((HousingSpace) value.get(0)).getOwner() == null) {
-                    return false;
-                }
-                Player owner1 = ((HousingSpace) value.get(0)).getOwner().getPlayer();
-                for (int i = 1; i < value.size(); i++) {
-                    if (((HousingSpace) value.get(i)).getOwner() == null) {
-                        return false;
-                    }
-                    if (!((HousingSpace) value.get(i)).getOwner().getPlayer().equals(owner1)) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-
+    @Override
+    public void performSpaceAction(Piece piece) {
+        if ((this.getOwner() != null) && (!this.getOwner().getPlayer().equals(piece.getPlayer()))) {
+            piece.charge(rent[numHouses]);
         }
-        return false;
     }
 }

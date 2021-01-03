@@ -77,12 +77,8 @@ public class GameListener implements Listener {
                     player.openInventory(GameManager.getGame().getHotBarHandler().getPropertyViewInventory(player));
                 }
             } else if (e.getAction().equals(InventoryAction.PICKUP_HALF)) {
-                if (localizedName.equalsIgnoreCase("housing space")) {
+                if (localizedName.equalsIgnoreCase("housing space") || localizedName.equalsIgnoreCase("railroad") || localizedName.equalsIgnoreCase("utility")) {
                     //mortgage or sell house
-                } else if (localizedName.equalsIgnoreCase("railroad")) {
-                    //mortgage
-                } else if (localizedName.equalsIgnoreCase("utility")) {
-                    //mortgage
                 }
             }
         }
