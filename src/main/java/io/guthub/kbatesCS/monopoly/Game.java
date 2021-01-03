@@ -142,8 +142,15 @@ public class Game {
     }
 
     public void endGame() {
-        for(Piece piece: pieces) {
+        for (Piece piece: pieces) {
             piece.getPlayer().getInventory().setContents(playerInventories.get(piece.getPlayer()));
+        }
+        for (int i = 0; i < 40; i++) {
+            BoardSpace space = gameBoard.getSpace(i);
+            if (space instanceof HousingSpace) {
+                ((HousingSpace) space).clearHouseSpace();
+            }
+            space.clearPieces();
         }
         gameStarted = false;
     }

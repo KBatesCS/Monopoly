@@ -118,6 +118,12 @@ public abstract class BoardSpace {
         return locationOnRow;
     }
 
+    public void clearPieces() {
+        for (int i = 0; i < 6; i++) {
+            buildPiece(i, Material.AIR);
+        }
+    }
+
     private void buildPiece(int pieceNum, Material material) {
 
         int xBottom = cornerX;

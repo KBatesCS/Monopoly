@@ -19,6 +19,38 @@ public abstract class BuyableBoardSpace extends BoardSpace{
     public BuyableBoardSpace(String name, Direction direction, int locationOnRow, Location originalLocation, int buyCost, int mortgagePrice) {
         super(name, direction, locationOnRow, originalLocation);
         this.buyCost = buyCost;
+        this.mortgagePrice = mortgagePrice;
+        this.mortgaged = false;
+    }
+
+    public boolean mortgageProperty() {
+        if (owner == null) {
+            return false;
+        }
+        if (mortgaged) {
+            return false;
+        }
+        owner.charge(-mortgagePrice);
+        mortgaged = true;
+        updateOwnershipDisplay();
+        return true;
+    }
+
+    public boolean unMortgageProperty() {
+        if (!mortgaged) {
+            return false;
+        }
+        if (owner.getMoney() < mortgagePrice) {
+            return false;
+        }
+        owner.charge(mortgagePrice);
+        mortgaged = false;
+        updateOwnershipDisplay();
+        return true;
+    }
+
+    public boolean isMortgaged() {
+        return mortgaged;
     }
 
     public abstract ArrayList<String> getLore(Player player);
@@ -33,11 +65,11 @@ public abstract class BuyableBoardSpace extends BoardSpace{
         }
         owner = piece;
         piece.charge(buyCost);
-        this.updateOwnershipDisplay(owner);
+        this.updateOwnershipDisplay();
         return true;
     }
 
-    public void updateOwnershipDisplay(Piece owner) {
+    public void updateOwnershipDisplay() {
         int locationOnRow = this.getLocationOnRow();
         if (locationOnRow == 0) {
             return;
@@ -49,6 +81,9 @@ public abstract class BuyableBoardSpace extends BoardSpace{
         if (owner != null) {
             mainMaterial = owner.getMaterial();
             edgeMaterial = Material.BLACK_CONCRETE;
+            if (mortgaged) {
+                edgeMaterial = Material.RED_CONCRETE;
+            }
         }
         Direction direction = this.getDirection();
         Location originalLocation = this.getOriginalLocation();

@@ -89,7 +89,8 @@ public class UtilitySpace extends BuyableBoardSpace {
 
     @Override
     public void performSpaceAction(Piece piece) {
-        if ((this.getOwner() != null) && (!this.getOwner().getPlayer().equals(piece.getPlayer()))) {
+
+        if ((!isMortgaged()) && (this.getOwner() != null) && (!this.getOwner().getPlayer().equals(piece.getPlayer()))) {
             if (numOwned() == 1) {
                 piece.charge(GameManager.getGame().getLastRoll() * 4);
             } else {

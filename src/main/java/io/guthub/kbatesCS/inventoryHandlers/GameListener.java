@@ -1,5 +1,6 @@
 package io.guthub.kbatesCS.inventoryHandlers;
 
+import io.guthub.kbatesCS.boardSpaces.BuyableBoardSpace;
 import io.guthub.kbatesCS.boardSpaces.HousingSpace;
 import io.guthub.kbatesCS.monopoly.GameManager;
 import org.bukkit.entity.Player;
@@ -71,14 +72,23 @@ public class GameListener implements Listener {
         Player player = (Player) e.getWhoClicked();
         if ((e.getCurrentItem() != null) && (e.getCurrentItem().hasItemMeta()) && (e.getCurrentItem().getItemMeta().hasLocalizedName())) {
             String localizedName = e.getCurrentItem().getItemMeta().getLocalizedName();
-            if (e.getAction().equals(InventoryAction.PICKUP_ALL)) {
-                if (localizedName.equalsIgnoreCase("housing space")) {
-                    ((HousingSpace) GameManager.getGame().getSpace(e.getCurrentItem().getItemMeta().getCustomModelData())).addHouse(player);
+            if (localizedName.equalsIgnoreCase("housing space") || localizedName.equalsIgnoreCase("railroad") || localizedName.equalsIgnoreCase("utility")) {
+                if (e.getAction().equals(InventoryAction.PICKUP_ALL)) {
+                    BuyableBoardSpace space = (BuyableBoardSpace) GameManager.getGame().getSpace(e.getCurrentItem().getItemMeta().getCustomModelData());
+                    if (space instanceof HousingSpace) {
+                        if (!space.isMortgaged()) {
+                            ((HousingSpace) space).addHouse(player);
+                        } else {
+                            space.unMortgageProperty();
+                        }
+                    } else {
+                        space.unMortgageProperty();
+                    }
                     player.openInventory(GameManager.getGame().getHotBarHandler().getPropertyViewInventory(player));
-                }
-            } else if (e.getAction().equals(InventoryAction.PICKUP_HALF)) {
-                if (localizedName.equalsIgnoreCase("housing space") || localizedName.equalsIgnoreCase("railroad") || localizedName.equalsIgnoreCase("utility")) {
-                    //mortgage or sell house
+                } else if (e.getAction().equals(InventoryAction.PICKUP_HALF)) {
+
+                    ((BuyableBoardSpace) GameManager.getGame().getSpace(e.getCurrentItem().getItemMeta().getCustomModelData())).mortgageProperty();
+                    player.openInventory(GameManager.getGame().getHotBarHandler().getPropertyViewInventory(player));
                 }
             }
         }

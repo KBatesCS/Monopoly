@@ -85,7 +85,7 @@ public class RailRoadSpace extends BuyableBoardSpace {
 
     @Override
     public void performSpaceAction(Piece piece) {
-        if ((owner != null) && (!owner.getPlayer().equals(piece.getPlayer()))) {
+        if ((!isMortgaged()) && (owner != null) && (!owner.getPlayer().equals(piece.getPlayer()))) {
             piece.charge(rent[numOwned() - 1]);
         }
     }

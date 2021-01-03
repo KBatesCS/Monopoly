@@ -61,13 +61,17 @@ public class HousingSpace extends BuyableBoardSpace {
     public boolean canEvenlyAddHouse() {
         HashMap<String, ArrayList<BoardSpace>> boardSpaces = GameManager.getBoardHash();
 
+        if (numHouses == 5) {
+            return false;
+        }
         for (HashMap.Entry mapElement : boardSpaces.entrySet()) {
-            String key = (String)mapElement.getKey();
-
             ArrayList<BoardSpace> value = ((ArrayList<BoardSpace>) mapElement.getValue());
             if ((value.get(0) instanceof HousingSpace) && (value.contains(this))) {
                 for (BoardSpace space: value) {
                     if (((HousingSpace) space).getNumHouses() < numHouses) {
+                        return false;
+                    }
+                    if (((HousingSpace) space).isMortgaged()) {
                         return false;
                     }
                 }
@@ -144,7 +148,7 @@ public class HousingSpace extends BuyableBoardSpace {
         }
     }
 
-    private void clearHouseSpace() {
+    public void clearHouseSpace() {
         int cornerX = this.getCornerX();
         int cornerZ = this.getCornerZ();
         int xDir = getDirection().xDir;
@@ -176,8 +180,6 @@ public class HousingSpace extends BuyableBoardSpace {
         HashMap<String, ArrayList<BoardSpace>> boardSpaces = GameManager.getBoardHash();
 
         for (HashMap.Entry mapElement : boardSpaces.entrySet()) {
-            String key = (String)mapElement.getKey();
-
             ArrayList<BoardSpace> value = ((ArrayList<BoardSpace>) mapElement.getValue());
             if ((value.get(0) instanceof HousingSpace) && (value.contains(this))) {
                 if (((HousingSpace) value.get(0)).getOwner() == null) {
@@ -199,6 +201,70 @@ public class HousingSpace extends BuyableBoardSpace {
         return false;
     }
 
+    public boolean canMortgageProperty() {
+        if (this.isMortgaged()) {
+            return false;
+        }
+        HashMap<String, ArrayList<BoardSpace>> boardSpaces = GameManager.getBoardHash();
+
+        for (HashMap.Entry mapElement : boardSpaces.entrySet()) {
+            ArrayList<BoardSpace> value = ((ArrayList<BoardSpace>) mapElement.getValue());
+            if ((value.get(0) instanceof HousingSpace) && (value.contains(this))) {
+                for (BoardSpace space: value) {
+                    if (((HousingSpace) space).getNumHouses() != 0) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public boolean canSellHouse() {
+        if (numHouses == 0) {
+            return false;
+        }
+        HashMap<String, ArrayList<BoardSpace>> boardSpaces = GameManager.getBoardHash();
+
+        for (HashMap.Entry mapElement : boardSpaces.entrySet()) {
+            ArrayList<BoardSpace> value = ((ArrayList<BoardSpace>) mapElement.getValue());
+            if ((value.get(0) instanceof HousingSpace) && (value.contains(this))) {
+                for (BoardSpace space: value) {
+                    if (((HousingSpace) space).getNumHouses() > numHouses) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public void sellHouse() {
+        getOwner().charge((houseCost)/2 * -1);
+        numHouses -= 1;
+        clearHouseSpace();
+        updateHouses();
+    }
+
+    @Override
+    public boolean mortgageProperty() {
+        if (getOwner() == null) {
+            return false;
+        }
+        if (canMortgageProperty()) {
+            super.mortgageProperty();
+        } else if (canSellHouse()) {
+            sellHouse();
+        } else {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public ArrayList<String> getLore(Player player) {
         ArrayList<String> lore = new ArrayList<String>();
@@ -216,8 +282,20 @@ public class HousingSpace extends BuyableBoardSpace {
         }
         lore.add(temp);
 
-        if ((allColorsOwned()) && (player.equals(owner.getPlayer()))) {
-            lore.add(ChatColor.DARK_AQUA + "Click to buy house");
+        if ((allColorsOwned()) && (canEvenlyAddHouse()) && (player.equals(owner.getPlayer()))) {
+            lore.add(ChatColor.DARK_AQUA + "Left click to buy house");
+        } else if (isMortgaged()) {
+            lore.add(ChatColor.DARK_AQUA + "Left click to un-mortgage property");
+        }
+
+        if ((owner != null) && (owner.getPlayer().equals(player))) {
+            if (numHouses == 0) {
+                if (canMortgageProperty()) {
+                    lore.add(ChatColor.DARK_AQUA + "Right click to mortgage property");
+                }
+            } else {
+                lore.add(ChatColor.DARK_AQUA + "Right click to sell house");
+            }
         }
 
         temp = "";
@@ -252,7 +330,7 @@ public class HousingSpace extends BuyableBoardSpace {
 
     @Override
     public void performSpaceAction(Piece piece) {
-        if ((this.getOwner() != null) && (!this.getOwner().getPlayer().equals(piece.getPlayer()))) {
+        if ((!isMortgaged()) && (this.getOwner() != null) && (!this.getOwner().getPlayer().equals(piece.getPlayer()))) {
             piece.charge(rent[numHouses]);
         }
     }
