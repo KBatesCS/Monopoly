@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -69,11 +70,20 @@ public class GameListener implements Listener {
     public void onInventoryClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
         if ((e.getCurrentItem() != null) && (e.getCurrentItem().hasItemMeta()) && (e.getCurrentItem().getItemMeta().hasLocalizedName())) {
-            if (e.getCurrentItem().getItemMeta().getLocalizedName().equalsIgnoreCase("housing space")) {
-                System.out.println("here1");
-                ((HousingSpace) GameManager.getGame().getSpace(e.getCurrentItem().getItemMeta().getCustomModelData())).addHouse(player);
-                System.out.println("here2");
-                player.openInventory(GameManager.getGame().getHotBarHandler().getPropertyViewInventory(player));
+            String localizedName = e.getCurrentItem().getItemMeta().getLocalizedName();
+            if (e.getAction().equals(InventoryAction.PICKUP_ALL)) {
+                if (localizedName.equalsIgnoreCase("housing space")) {
+                    ((HousingSpace) GameManager.getGame().getSpace(e.getCurrentItem().getItemMeta().getCustomModelData())).addHouse(player);
+                    player.openInventory(GameManager.getGame().getHotBarHandler().getPropertyViewInventory(player));
+                }
+            } else if (e.getAction().equals(InventoryAction.PICKUP_HALF)) {
+                if (localizedName.equalsIgnoreCase("housing space")) {
+                    //mortgage or sell house
+                } else if (localizedName.equalsIgnoreCase("railroad")) {
+                    //mortgage
+                } else if (localizedName.equalsIgnoreCase("utility")) {
+                    //mortgage
+                }
             }
         }
         if (GameManager.playerInGame(player) && GameManager.gameStarted()) {

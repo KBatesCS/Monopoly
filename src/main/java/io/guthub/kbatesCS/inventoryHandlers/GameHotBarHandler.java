@@ -101,8 +101,10 @@ public class GameHotBarHandler {
         propertyMeta.setDisplayName(space.getName());
         if (space instanceof HousingSpace) {
             propertyMeta.setLocalizedName("housing space");
+        } else if (space instanceof RailRoadSpace){
+            propertyMeta.setLocalizedName("railroad");
         } else {
-            propertyMeta.setLocalizedName("railroad utility");
+            propertyMeta.setLocalizedName("utility");
         }
         propertyMeta.setCustomModelData(space.getLocationOnBoard());
 

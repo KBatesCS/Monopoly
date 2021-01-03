@@ -5,6 +5,7 @@ import io.guthub.kbatesCS.board.Piece;
 import io.guthub.kbatesCS.monopoly.GameManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -98,18 +99,97 @@ public class HousingSpace extends BoardSpace{
         return numHouses;
     }
 
-    public int mortgageProperty(int houses) {
-        if ((numHouses - houses) < 0) {
-            numHouses -= houses;
-        }
+    public int mortgageProperty() {
         return 0;
     }
 
     private void updateHouses() {
+        int cornerX = this.getCornerX();
+        int cornerZ = this.getCornerZ();
+        int xDir = getDirection().xDir;
+        int zDir = getDirection().zDir;
         if (numHouses == 5) {
-            //show hotel
+            clearHouseSpace();
+            if ((this.getDirection() == Direction.NORTH) || (this.getDirection() == Direction.SOUTH)) {
+                cornerZ += 11 * zDir;
+                cornerX += 2 * xDir;
+                for (int x = 0; x < 6; x++) {
+                    for (int y = 1; y < 4; y++) {
+                        for (int z = 0; z < 2; z++) {
+                            if (!(((x == 0) || (x == 5)) && (y == 3))) {
+                                getWorld().getBlockAt(cornerX + x * xDir, getOriginalLocation().getBlockY() + y, cornerZ + z * zDir).setType(Material.RED_CONCRETE);
+                            }
+                        }
+                    }
+                }
+            } else {
+                cornerZ += 2 * zDir;
+                cornerX += 11 * xDir;
+                for (int x = 0; x < 2; x++) {
+                    for (int y = 1; y < 4; y++) {
+                        for (int z = 0; z < 6; z++) {
+                            if (!(((z == 0) || (z == 5)) && (y == 3))) {
+                                getWorld().getBlockAt(cornerX + x * xDir, getOriginalLocation().getBlockY() + y, cornerZ + z * zDir).setType(Material.RED_CONCRETE);
+                            }
+                        }
+                    }
+                }
+            }
         } else {
-            //show houses
+            System.out.println("adding house?");
+            if ((this.getDirection() == Direction.NORTH) || (this.getDirection() == Direction.SOUTH)) {
+                cornerZ += 11 * zDir;
+                cornerX += 1 * xDir;
+                for (int i = 3; i > (3 - numHouses); i--) {
+                    System.out.println("adding blocks?");
+                    getWorld().getBlockAt(cornerX + (2 * i * xDir), getOriginalLocation().getBlockY() + 1, cornerZ).setType(Material.GREEN_CONCRETE);
+                    getWorld().getBlockAt(cornerX + (2 * i * xDir), getOriginalLocation().getBlockY() + 1, cornerZ + (1 * zDir)).setType(Material.GREEN_CONCRETE);
+                    getWorld().getBlockAt((cornerX + (2 * i * xDir)) + (1 * xDir), getOriginalLocation().getBlockY() + 1, cornerZ).setType(Material.GREEN_CONCRETE);
+                    getWorld().getBlockAt(cornerX + (2 * i * xDir) + (1 * xDir), getOriginalLocation().getBlockY() + 1, cornerZ + (1 * zDir)).setType(Material.GREEN_CONCRETE);
+                    getWorld().getBlockAt(cornerX + (2 * i * xDir), getOriginalLocation().getBlockY() + 2, cornerZ + (1 * zDir)).setType(Material.GREEN_CONCRETE);
+                    getWorld().getBlockAt(cornerX + (2 * i * xDir) + (1 * xDir), getOriginalLocation().getBlockY() + 2, cornerZ).setType(Material.GREEN_CONCRETE);
+                }
+            } else {
+                cornerZ += 1 * zDir;
+                cornerX += 11 * xDir;
+                for (int i = 3; i > (3 - numHouses); i--) {
+                    System.out.println("adding blocks?");
+                    getWorld().getBlockAt(cornerX, getOriginalLocation().getBlockY() + 1, cornerZ + (2 * i * zDir)).setType(Material.GREEN_CONCRETE);
+                    getWorld().getBlockAt(cornerX + (1 * xDir), getOriginalLocation().getBlockY() + 1, cornerZ + (2 * i * zDir)).setType(Material.GREEN_CONCRETE);
+                    getWorld().getBlockAt(cornerX, getOriginalLocation().getBlockY() + 1, cornerZ + (2 * i * zDir) + (1 * zDir)).setType(Material.GREEN_CONCRETE);
+                    getWorld().getBlockAt(cornerX + (1 * xDir), getOriginalLocation().getBlockY() + 1, cornerZ + (2 * i * zDir) + (1 * zDir)).setType(Material.GREEN_CONCRETE);
+                    getWorld().getBlockAt(cornerX + (1 * xDir), getOriginalLocation().getBlockY() + 2, cornerZ + (2 * i * zDir)).setType(Material.GREEN_CONCRETE);
+                    getWorld().getBlockAt(cornerX, getOriginalLocation().getBlockY() + 2, cornerZ + (2 * i * zDir) + (1 * zDir)).setType(Material.GREEN_CONCRETE);
+                }
+            }
+        }
+    }
+
+    private void clearHouseSpace() {
+        int cornerX = this.getCornerX();
+        int cornerZ = this.getCornerZ();
+        int xDir = getDirection().xDir;
+        int zDir = getDirection().zDir;
+        if ((this.getDirection() == Direction.NORTH) || (this.getDirection() == Direction.SOUTH)) {
+            cornerZ += 11 * zDir;
+            cornerX += 1 * xDir;
+            for (int x = 0; x < 8; x++) {
+                for (int y = 1; y < 4; y++) {
+                    for (int z = 0; z < 2; z++) {
+                        getWorld().getBlockAt(cornerX + x * xDir, getOriginalLocation().getBlockY() + y, cornerZ + z * zDir).setType(Material.AIR);
+                    }
+                }
+            }
+        } else {
+            cornerZ += 1 * zDir;
+            cornerX += 11 * xDir;
+            for (int x = 0; x < 2; x++) {
+                for (int y = 1; y < 4; y++) {
+                    for (int z = 0; z < 8; z++) {
+                        getWorld().getBlockAt(cornerX + x * xDir, getOriginalLocation().getBlockY() + y, cornerZ + z * zDir).setType(Material.AIR);
+                    }
+                }
+            }
         }
     }
 

@@ -110,6 +110,14 @@ public abstract class BoardSpace {
         }
     }
 
+    public World getWorld() {
+        return world;
+    }
+
+    public Location getOriginalLocation() {
+        return originalLocation;
+    }
+
     public void addToSpace(Piece piece) {
         pieces.add(piece);
         updateSpace();
@@ -191,6 +199,10 @@ public abstract class BoardSpace {
         world.getBlockAt(xBottom, originalLocation.getBlockY() + 2, zBottom).setType(material);
         world.getBlockAt(xBottom + direction.xDir, originalLocation.getBlockY() + 2,
                 zBottom + direction.zDir).setType(material);
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 
     public abstract void performSpaceAction(Piece piece);
