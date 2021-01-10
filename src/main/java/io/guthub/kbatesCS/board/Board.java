@@ -34,33 +34,6 @@ public class Board {
         buildGame();
     }
 
-    public void testSpaces() {
-        spaces[0].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[0].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[0].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[0].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[0].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[10].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[20].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-        spaces[30].addToSpace(new Piece(Material.BROWN_CONCRETE, null));
-    }
-
     /**
      * as the name says, this is the general function to create the entire game board, map dices and everything.
      */
@@ -112,16 +85,16 @@ public class Board {
     }
 
     private void initializeSpaceHashmap() {
-        propertyDivision.put("brown", (new ArrayList<BoardSpace>(Arrays.asList(spaces[1], spaces[3]))));
-        propertyDivision.put("light blue", (new ArrayList<BoardSpace>(Arrays.asList(spaces[6], spaces[8], spaces[9]))));
-        propertyDivision.put("purple", (new ArrayList<BoardSpace>(Arrays.asList(spaces[11], spaces[13], spaces[14]))));
-        propertyDivision.put("orange", (new ArrayList<BoardSpace>(Arrays.asList(spaces[16], spaces[18], spaces[19]))));
-        propertyDivision.put("red", (new ArrayList<BoardSpace>(Arrays.asList(spaces[21], spaces[23], spaces[24]))));
-        propertyDivision.put("yellow", (new ArrayList<BoardSpace>(Arrays.asList(spaces[26], spaces[27], spaces[29]))));
-        propertyDivision.put("green", (new ArrayList<BoardSpace>(Arrays.asList(spaces[31], spaces[32], spaces[34]))));
-        propertyDivision.put("dark blue", (new ArrayList<BoardSpace>(Arrays.asList(spaces[37], spaces[39]))));
-        propertyDivision.put("railroad", (new ArrayList<BoardSpace>(Arrays.asList(spaces[5], spaces[15], spaces[25], spaces[35]))));
-        propertyDivision.put("essentials", (new ArrayList<BoardSpace>(Arrays.asList(spaces[12], spaces[28]))));
+        propertyDivision.put("brown", (new ArrayList<>(Arrays.asList(spaces[1], spaces[3]))));
+        propertyDivision.put("light blue", (new ArrayList<>(Arrays.asList(spaces[6], spaces[8], spaces[9]))));
+        propertyDivision.put("purple", (new ArrayList<>(Arrays.asList(spaces[11], spaces[13], spaces[14]))));
+        propertyDivision.put("orange", (new ArrayList<>(Arrays.asList(spaces[16], spaces[18], spaces[19]))));
+        propertyDivision.put("red", (new ArrayList<>(Arrays.asList(spaces[21], spaces[23], spaces[24]))));
+        propertyDivision.put("yellow", (new ArrayList<>(Arrays.asList(spaces[26], spaces[27], spaces[29]))));
+        propertyDivision.put("green", (new ArrayList<>(Arrays.asList(spaces[31], spaces[32], spaces[34]))));
+        propertyDivision.put("dark blue", (new ArrayList<>(Arrays.asList(spaces[37], spaces[39]))));
+        propertyDivision.put("railroad", (new ArrayList<>(Arrays.asList(spaces[5], spaces[15], spaces[25], spaces[35]))));
+        propertyDivision.put("essentials", (new ArrayList<>(Arrays.asList(spaces[12], spaces[28]))));
     }
 
     public HashMap<String, ArrayList<BoardSpace>> getPropertyDivision() {
@@ -186,9 +159,4 @@ public class Board {
             System.out.println("error in drawing board (probably issue with image path)");
         }
     }
-
-    public void movePieceForward(Piece piece, int numSpaces) {
-
-    }
-
 }

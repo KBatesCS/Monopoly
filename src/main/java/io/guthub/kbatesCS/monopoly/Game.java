@@ -60,28 +60,52 @@ public class Game {
             return false;
         }
         numRolls++;
+        Piece currentPiece = pieces.get(0);
         int roll1 = (int) (Math.random() * 6 + 1);
         int roll2 = (int) (Math.random() * 6 + 1);
         lastRoll = roll1 + roll2;
+        Bukkit.getServer().broadcastMessage(" Rolled <" + roll1 + "> and <" + roll2 + ">, moving "
+                + (roll1 + roll2) + " spaces");
+        if (currentPiece.isInJail()) {
+            if (currentPiece.getTurnsInJail() == 2) {
+                currentPiece.getOutOfJail(50);
+            } else {
+                if (roll1 == roll2) {
+                    currentPiece.moveToSpace(10 + lastRoll);
+                    currentPiece.getOutOfJail(0);
+                } else {
+                    currentPiece.addTurnInJail();
+                }
+                diceRolled = true;
+                return true;
+            }
+        }
         if ((roll1 == roll2) && (numRolls == 3)) {
-            //to jail you go
+            currentPiece.sendToJail();
+            return true;
         } else if (roll1 != roll2) {
             diceRolled = true;
         }
-        Bukkit.getServer().broadcastMessage(" Rolled <" + roll1 + "> and <" + roll2 + ">, moving "
-                                            + (roll1 + roll2) + " spaces");
-        int currentLocation = pieces.get(0).getCurrentLocation();
+
+        int currentLocation = currentPiece.getCurrentLocation();
         if ((currentLocation + roll1 + roll2) >= 40) {
-            pieces.get(0).charge(-200);
+            currentPiece.charge(-200);
         }
         currentLocation = (currentLocation + roll1 + roll2) % 40;
 
-        pieces.get(0).moveToSpace(currentLocation, gameBoard.getSpace(currentLocation));
+        currentPiece.moveToSpace(currentLocation);
+        if (currentPiece.isInJail()) {
+            diceRolled = true;
+        }
         return true;
     }
 
     public Player currentPlayer() {
         return pieces.get(0).getPlayer();
+    }
+
+    public boolean getCurrentPlayerOutOfJail(int price) {
+        return pieces.get(0).getOutOfJail(price);
     }
 
     public boolean buySpace() {
@@ -105,7 +129,7 @@ public class Game {
         playerInventories = new HashMap<Player, ItemStack[]>();
         hotBarHandler = new GameHotBarHandler();
         for (Piece piece: pieces) {
-            piece.moveToSpace(0, gameBoard.getSpace(0));
+            piece.moveToSpace(0);
             playerInventories.put(piece.getPlayer(), piece.getPlayer().getInventory().getContents());
             piece.getPlayer().getInventory().clear();
             hotBarHandler.setupHotBar(piece.getPlayer());
@@ -139,6 +163,13 @@ public class Game {
         }
         pieces.add(new Piece(material, player));
         return true;
+    }
+
+    public void leaveGame(Piece piece) {
+        piece.getPlayer().getInventory().setContents(playerInventories.get(piece.getPlayer()));
+        BoardSpace space = gameBoard.getSpace(piece.getCurrentLocation());
+        space.removeFromSpace(piece);
+        pieces.remove(piece);
     }
 
     public void endGame() {

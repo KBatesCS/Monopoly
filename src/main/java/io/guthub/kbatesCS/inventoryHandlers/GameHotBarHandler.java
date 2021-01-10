@@ -128,6 +128,12 @@ public class GameHotBarHandler {
         viewPropertiesMeta.setDisplayName("View Properties");
         viewProperties.setItemMeta(viewPropertiesMeta);
         inventory.setItem(3, viewProperties);
+
+        ItemStack getOutOfJail = new ItemStack(Material.CHARCOAL);
+        ItemMeta getOutOfJailsMeta = getOutOfJail.getItemMeta();
+        getOutOfJailsMeta.setDisplayName("Get Out Of Jail");
+        getOutOfJail.setItemMeta(getOutOfJailsMeta);
+        inventory.setItem(4, getOutOfJail);
     }
 
 

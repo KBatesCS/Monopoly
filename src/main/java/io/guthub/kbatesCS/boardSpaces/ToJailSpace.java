@@ -12,7 +12,7 @@ public class ToJailSpace extends BoardSpace {
 
     @Override
     public void performSpaceAction(Piece piece) {
-
+        piece.sendToJail();
     }
 
 }

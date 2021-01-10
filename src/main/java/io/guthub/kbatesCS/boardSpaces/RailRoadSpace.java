@@ -7,14 +7,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RailRoadSpace extends BuyableBoardSpace {
 
     private int buyCost;
     private int rent[];
-    private Piece owner;
     private int mortgageValue;
 
     public RailRoadSpace (String name, Direction direction, int locationOnRow, Location originalLocation) {
@@ -31,6 +29,7 @@ public class RailRoadSpace extends BuyableBoardSpace {
     public int numOwned() {
         ArrayList<BoardSpace> railroads = GameManager.getBoardHash().get("railroad");
         int numOwned = 0;
+        Piece owner = getOwner();
         if (owner == null) {
             return 0;
         }
@@ -44,6 +43,7 @@ public class RailRoadSpace extends BuyableBoardSpace {
 
     @Override
     public ArrayList<String> getLore(Player player) {
+        Piece owner = getOwner();
         ArrayList<String> lore = new ArrayList<String>();
 
         String temp;
@@ -85,6 +85,7 @@ public class RailRoadSpace extends BuyableBoardSpace {
 
     @Override
     public void performSpaceAction(Piece piece) {
+        Piece owner = getOwner();
         if ((!isMortgaged()) && (owner != null) && (!owner.getPlayer().equals(piece.getPlayer()))) {
             piece.charge(rent[numOwned() - 1]);
         }

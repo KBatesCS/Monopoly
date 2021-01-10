@@ -1,6 +1,5 @@
 package io.guthub.kbatesCS.boardSpaces;
 
-import io.guthub.kbatesCS.board.Board;
 import io.guthub.kbatesCS.board.Direction;
 import io.guthub.kbatesCS.board.Piece;
 import org.bukkit.Location;
@@ -12,9 +11,7 @@ import java.util.ArrayList;
 public abstract class BoardSpace {
 
     private String displayName;
-    private int buyCost;
-    private int houseCost;
-    private ArrayList<Piece> pieces = new ArrayList<Piece>();
+    private ArrayList<Piece> pieces = new ArrayList<>();
     private Direction direction;
     private int locationOnRow;
     private int locationOnBoard;
@@ -65,8 +62,6 @@ public abstract class BoardSpace {
         }
     }
 
-
-
     public World getWorld() {
         return world;
     }
@@ -78,7 +73,6 @@ public abstract class BoardSpace {
     public void addToSpace(Piece piece) {
         pieces.add(piece);
         updateSpace();
-        //add code to perform new space action??
     }
 
     public boolean removeFromSpace(Piece piece) {

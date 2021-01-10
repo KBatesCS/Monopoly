@@ -46,6 +46,16 @@ public class GameListener implements Listener {
             }
         } else if (itemName.equalsIgnoreCase("View Properties")) {
             e.getPlayer().openInventory(GameManager.getGame().getHotBarHandler().getPropertyViewInventory(e.getPlayer()));
+        } else if (itemName.equalsIgnoreCase("Get Out Of Jail")) {
+            if (GameManager.getGame().currentPlayer().equals(e.getPlayer())) {
+                if (GameManager.getGame().getCurrentPlayerOutOfJail(50)) {
+                    e.getPlayer().sendMessage("You are out of jail");
+                } else {
+                    e.getPlayer().sendMessage("You are not in jail");
+                }
+            } else {
+                e.getPlayer().sendMessage("It is not your turn");
+            }
         }
     }
 
@@ -61,7 +71,7 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
-        Player player = (Player) e.getPlayer();
+        Player player = e.getPlayer();
         if (GameManager.playerInGame(player) && GameManager.gameStarted()) {
             e.setCancelled(true);
         }
@@ -99,7 +109,7 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent e) {
-        Player player = (Player) e.getPlayer();
+        Player player = e.getPlayer();
         if (GameManager.playerInGame(player) && GameManager.gameStarted()) {
             e.setCancelled(true);
         }

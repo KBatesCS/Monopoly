@@ -2,22 +2,26 @@ package io.guthub.kbatesCS.board;
 
 import io.guthub.kbatesCS.boardSpaces.BoardSpace;
 import io.guthub.kbatesCS.inventoryHandlers.ScoreboardHandler;
+import io.guthub.kbatesCS.monopoly.GameManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class Piece {
     private Material material;
-    Player player;
+    private Player player;
     private int money;
     private int currentLocation;
     private BoardSpace currentSpace;
+    private boolean inJail;
+    private int turnsInJail;
 
     public Piece(Material material, Player player) {
         this.material = material;
         this.player = player;
-        currentLocation = 0;
         money = 9999;
         currentLocation = 0;
+        inJail = false;
+        turnsInJail = 0;
     }
 
     public void charge(int charge) {
@@ -29,14 +33,42 @@ public class Piece {
         return currentLocation;
     }
 
-    public void moveToSpace(int spaceLocation, BoardSpace newSpace) {
+    public void sendToJail() {
+        inJail = true;
+        turnsInJail = 0;
+        moveToSpace(10);
+    }
+
+    public boolean isInJail() {
+        return inJail;
+    }
+
+    public int getTurnsInJail() {
+        return turnsInJail;
+    }
+
+    public void addTurnInJail() {
+        turnsInJail++;
+    }
+
+    public boolean getOutOfJail(int price) {
+        if (!inJail) {
+            return false;
+        }
+        this.charge(price);
+        inJail = false;
+        return true;
+    }
+
+    public void moveToSpace(int spaceLocation) {
         currentLocation = spaceLocation;
         if (currentSpace != null) {
             currentSpace.removeFromSpace(this);
         }
+        BoardSpace newSpace = GameManager.getGame().getSpace(spaceLocation);
         newSpace.addToSpace(this);
-        newSpace.performSpaceAction(this);
         currentSpace = newSpace;
+        newSpace.performSpaceAction(this);
     }
 
     public Material getMaterial() {
