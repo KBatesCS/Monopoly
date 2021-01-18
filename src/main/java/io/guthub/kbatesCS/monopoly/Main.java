@@ -14,6 +14,7 @@ public final class Main extends JavaPlugin {
         this.getCommand("join").setTabCompleter(new AutoCompleter(this));
         this.getCommand("startGame").setExecutor(new CommandListener(this));
         this.getCommand("endGame").setExecutor(new CommandListener(this));
+        this.getCommand("trade").setExecutor(new CommandListener(this));
 
         this.getServer().getPluginManager().registerEvents(new GameListener(), this);
     }

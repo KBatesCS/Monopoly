@@ -3,6 +3,7 @@ package io.guthub.kbatesCS.commandHandlers;
 import io.guthub.kbatesCS.monopoly.Game;
 import io.guthub.kbatesCS.monopoly.GameManager;
 import io.guthub.kbatesCS.monopoly.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,7 +13,6 @@ import org.bukkit.entity.Player;
 public class CommandListener implements CommandExecutor {
 
     private final Main plugin;
-    private int gameNum;
 
     public CommandListener(Main plugin) {
         this.plugin = plugin;
@@ -36,18 +36,18 @@ public class CommandListener implements CommandExecutor {
             }
 
             if (GameManager.playerInGame((Player) sender)) {
-                ((Player) sender).sendMessage("already in game");
+                sender.sendMessage("already in game");
                 return false;
             }
 
             Material material = Material.getMaterial(args[0]);
             if ((material == null) || (!material.isSolid())) {
-                ((Player) sender).sendMessage(args[0] + " is not a valid block");
+                sender.sendMessage(args[0] + " is not a valid block");
                 return false;
             }
 
             if (GameManager.getGame().addPiece((Player) sender, material)) {
-                ((Player) sender).sendMessage("successfully joined the game");
+                sender.sendMessage("successfully joined the game");
                 return true;
             }
             return false;
@@ -56,7 +56,7 @@ public class CommandListener implements CommandExecutor {
                 return false;
             }
             if (!GameManager.startGame()) {
-                ((Player) sender).sendMessage("Game has already started");
+                sender.sendMessage("Game has already started");
                 return false;
             }
             return true;
@@ -69,6 +69,21 @@ public class CommandListener implements CommandExecutor {
                 return true;
             }
             return false;
+        } else if (cmd.getName().equalsIgnoreCase("trade")) {
+            if (args.length != 1) {
+                return false;
+            }
+            Player player = Bukkit.getPlayer(args[0]);
+            if (player == null) {
+                sender.sendMessage("Player does not exist");
+                return false;
+            }
+            if (GameManager.playerInGame(player)) {
+                sender.sendMessage("Player not in the game");
+                return false;
+            }
+
+
         }
         return false;
 

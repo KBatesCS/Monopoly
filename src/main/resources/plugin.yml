@@ -17,3 +17,6 @@ commands:
   endGame:
     description: end a game
     usage: /endGame <gamenum>
+  trade:
+    description: trade with a player
+    usage : /trade <player name>
